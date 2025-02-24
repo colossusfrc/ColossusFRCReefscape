@@ -7,6 +7,7 @@ package frc.robot;
 import frc.robot.Constants.Controle;
 
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.RCFeatures.Interfaces.ArmInterface;
 import frc.robot.RCFeatures.Interfaces.IOInterface;
 import frc.robot.RCFeatures.Interfaces.SwerveInterface;
@@ -37,6 +38,12 @@ public class RobotContainer implements IOInterface, ArmInterface, SwerveInterfac
   // Define os motores como coast ou brake
   public void setMotorBrake(boolean brake) {
     swerve.setMotorBrake(brake);
+  }
+
+  public Command getAutonomousCommand()
+  {
+    //return swerve.getAutonomousCommand(swerve.getAutonomousRoutine(), true);
+    return null;
   }
   
 

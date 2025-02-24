@@ -1,4 +1,4 @@
-package frc.robot.RCFeatures;
+package frc.robot.RCFeatures.UnitTests;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -13,7 +13,7 @@ public class SwerveUnitTest {
     public SwerveUnitTest(SwerveSubsystem swerve, CommandXboxController controleXbox){
         this.swerve = swerve;
         this.controleXbox = controleXbox;
-          swerveUnitTestHeading();
+          swerveUnitTestHeadingJoysticjInputs();
     }
     private void swerveUnitTestHeading(){
         controleXbox.povDown().toggleOnTrue(swerve.driveCommandAlinharComJoystick(
@@ -36,5 +36,27 @@ public class SwerveUnitTest {
         ()->0.0, 
         ()->-90.0, 
         ()->0.0));
-      }
+    }
+    private void swerveUnitTestHeadingJoysticjInputs(){
+        controleXbox.povDown().toggleOnTrue(swerve.driveCommandAlinharComJoystick(
+        () -> MathUtil.applyDeadband(-controleXbox.getLeftY()*Controle.limit, Constants.Controle.DEADBAND),
+        () -> MathUtil.applyDeadband(-controleXbox.getLeftX()*Controle.limit, Constants.Controle.DEADBAND), 
+        ()->0.0, 
+        ()->90));
+        controleXbox.povUp().toggleOnTrue(swerve.driveCommandAlinharComJoystick(
+        () -> MathUtil.applyDeadband(-controleXbox.getLeftY()*Controle.limit, Constants.Controle.DEADBAND),
+        () -> MathUtil.applyDeadband(-controleXbox.getLeftX()*Controle.limit, Constants.Controle.DEADBAND), 
+        ()->0.0, 
+        ()->-90.0));
+        controleXbox.povRight().toggleOnTrue(swerve.driveCommandAlinharComJoystick(
+        () -> MathUtil.applyDeadband(-controleXbox.getLeftY()*Controle.limit, Constants.Controle.DEADBAND),
+        () -> MathUtil.applyDeadband(-controleXbox.getLeftX()*Controle.limit, Constants.Controle.DEADBAND), 
+        ()->90.0, 
+        ()->0.0));
+        controleXbox.povLeft().toggleOnTrue(swerve.driveCommandAlinharComJoystick(
+        () -> MathUtil.applyDeadband(-controleXbox.getLeftY()*Controle.limit, Constants.Controle.DEADBAND),
+        () -> MathUtil.applyDeadband(-controleXbox.getLeftX()*Controle.limit, Constants.Controle.DEADBAND), 
+        ()->-90.0, 
+        ()->0.0));
+    }
 }

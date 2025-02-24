@@ -4,11 +4,14 @@
 
 package frc.robot;
 
+import java.util.HashMap;
+
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.geometry.Translation3d;
 import swervelib.math.Matter;
 import swervelib.math.SwerveMath;
-import swervelib.parser.SwerveDriveConfiguration;
 
 /**
  * Classe de constantes
@@ -34,6 +37,30 @@ public final class Constants {
 
     // Centro de massa do chassi
     public static final Matter CHASSIS    = new Matter(new Translation3d(xMass, yMass, (zMass)), ROBOT_MASS);
+   }
+
+   public static final class AutonConstants{
+    private static final String[] labels = {
+      "bleu 1",
+      "bleu 2",
+      "bleu 3",
+      "rouge 1",
+      "rouge 2",
+      "rouge 3"
+    };
+    private static final Pose2d[] initialPositions = {
+      new Pose2d(7.6, 2, new Rotation2d(180)),
+      new Pose2d(7.6, 4, new Rotation2d(180)),
+      new Pose2d(7.6, 6, new Rotation2d(180)),
+      new Pose2d(10, 2, new Rotation2d(0)),
+      new Pose2d(10, 4, new Rotation2d(0)),
+      new Pose2d(10, 6, new Rotation2d(0))
+    };
+
+    public static final HashMap<String, Pose2d> initialPositionsByLabels = new HashMap<>();
+    static{
+      for(int i = 0; i<6; i++)initialPositionsByLabels.put(labels[i], initialPositions[i]); 
+    }
    }
 
     // Contem a porta em que o controle está

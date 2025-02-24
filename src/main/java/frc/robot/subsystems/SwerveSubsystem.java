@@ -18,6 +18,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -58,6 +59,8 @@ public class SwerveSubsystem extends SubsystemBase {
     public void periodic() {
       // Dentro da função periódica atualizamos nossa odometria
       swerveDrive.updateOdometry();
+
+      SmartDashboard.putString("auto:", getAutonomousRoutine());
     }
 
       public void setupPathPlanner() {
@@ -230,5 +233,13 @@ public class SwerveSubsystem extends SubsystemBase {
     
     // Create a path following command using AutoBuilder. This will also trigger event markers.
     return new PathPlannerAuto(pathName);
+  }
+
+  public String getAutonomousRoutine()
+  {
+    String alliance = (DriverStation.getAlliance().get() == Alliance.Red)?"rouge ":"bleu ";
+
+    String position = String.valueOf(DriverStation.getLocation().getAsInt());
+    return alliance+position;
   }
 }

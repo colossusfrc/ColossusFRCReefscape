@@ -1,4 +1,4 @@
-package frc.robot.RCFeatures;
+package frc.robot.RCFeatures.Interfaces;
 
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants.Controle;
