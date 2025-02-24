@@ -15,7 +15,7 @@ public class BracoAlto extends Braco{
 
     private final Supplier<Double> getTreatedMotion;
 
-    private final double offset = -0.817;
+    private final double offset = -0.749;
 
     private final double initialComplementarAngle = 92.3;
 
@@ -67,8 +67,9 @@ public class BracoAlto extends Braco{
 
         double treatedPower = (Math.abs(nonTreatedPower)>ArmUtility.ArmConstants.kMaxOutput)?Math.signum(nonTreatedPower)*ArmConstants.kMaxOutput:nonTreatedPower;
         
+        treatedPower-= Math.cos(getAbsoluteAngle()) * ArmConstants.kFF;
+
         treatedPower = ((Math.abs(super.pidController.getPositionError())>=180)&&(getAbsoluteAngle()>0))?-Math.abs(treatedPower):treatedPower;
-    
         setArm(treatedPower);
     }
 

@@ -24,7 +24,7 @@ public final class Constants {
     //Velocidade máxima *DEVE SER CONFIGURADO PARA O SEU ROBÔ*
     public static final double MAX_SPEED = 4;
     //Posição do módulo mais longe *COLOQUE OS MESMOS VALORES DO JSON*
-    private static final Translation2d FURTHEST_MODULE_POSE = new Translation2d(MAX_SPEED, LOOP_TIME);
+    private static final Translation2d FURTHEST_MODULE_POSE = new Translation2d(11.75, 11.75);
     public static final double MAX_ANGULAR_SPEED = SwerveMath.calculateMaxAngularVelocity(MAX_SPEED, FURTHEST_MODULE_POSE.getX(), FURTHEST_MODULE_POSE.getY());
 
     //Posições do centro de massa *DEVE SER CONFIGURADO PARA SEU ROBÔ*
@@ -38,7 +38,7 @@ public final class Constants {
 
     // Contem a porta em que o controle está
     public static final class Controle {
-      public static final double limit = 0.65;
+      public static final double limit = 0.8;
       // Porta do controle
       public static final int xboxControle = 0;
       
@@ -48,7 +48,7 @@ public final class Constants {
 
     public static final class SwerveConfigs {
       // variável que ativa o PID para controlar a orientação do robô (PID tunado no json)
-      public static final boolean headingCorrection = false;
+      public static final boolean headingCorrection = true;
       // true para correção de aceleração
       public static final boolean accelCorrection = false;
       // constante para diminuir o input do joystick (0 < multiplicadorRotacional <= 1)
@@ -67,10 +67,10 @@ public final class Constants {
       public static final class ArmConstants {
         public static final double kP = 0.008;
         public static final double kI = 0.0;
-        public static final double kD = 0.0;
+        public static final double kD = 0.00039;
         public static final double kIz = 0.0;
-        public static final double kFF = 0.0;
-        public static final double kMaxOutput = 0.2;
+        public static final double kFF = 0.046;
+        public static final double kMaxOutput = 0.3;
         public static final double kMinOutput = -kMaxOutput;
       }
     }

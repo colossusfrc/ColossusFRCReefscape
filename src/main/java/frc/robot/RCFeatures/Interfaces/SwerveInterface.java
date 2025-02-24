@@ -1,0 +1,11 @@
+package frc.robot.RCFeatures;
+
+import java.io.File;
+
+import edu.wpi.first.wpilibj.Filesystem;
+import frc.robot.subsystems.SwerveSubsystem;
+
+public interface SwerveInterface {
+  // Aqui iniciamos o swerve
+    SwerveSubsystem swerve = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(), "swerve"));
+}
