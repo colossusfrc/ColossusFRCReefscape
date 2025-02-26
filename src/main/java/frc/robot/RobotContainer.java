@@ -9,12 +9,19 @@ import frc.robot.Constants.Controle;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.RCFeatures.Interfaces.ArmInterface;
+import frc.robot.RCFeatures.Interfaces.ClawInterface;
 import frc.robot.RCFeatures.Interfaces.IOInterface;
 import frc.robot.RCFeatures.Interfaces.SwerveInterface;
 import frc.robot.RCFeatures.UnitTests.ArmUnitTest;
+import frc.robot.RCFeatures.UnitTests.ClawUnitTest;
 import frc.robot.RCFeatures.UnitTests.SwerveUnitTest;
+import frc.robot.subsystems.ArmMechanisms.Garra;
 
-public class RobotContainer implements IOInterface, ArmInterface, SwerveInterface{
+public class RobotContainer implements IOInterface,
+ ArmInterface,
+  SwerveInterface,
+    ClawInterface
+   {
   public RobotContainer() {
     // Configure the trigger bindings
     configureBindings();
@@ -32,6 +39,8 @@ public class RobotContainer implements IOInterface, ArmInterface, SwerveInterfac
     new SwerveUnitTest(swerve, controleXbox);
     //testes unitparios do braço
     new ArmUnitTest(controleXbox, bracos);
+    //testes unitarios da garra
+    new ClawUnitTest(garra);
   }
 
 

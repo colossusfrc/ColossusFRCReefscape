@@ -19,6 +19,10 @@ import frc.robot.Constants.ArmUtility;
 
 import java.util.function.Supplier;
 
+import org.dyn4j.exception.NullElementException;
+
+import frc.robot.RCFeatures.Interfaces.ArmInterface.ArmStates;
+
 public abstract class Braco extends SubsystemBase implements Clever{
 
   protected final SparkMax motor;
@@ -33,10 +37,17 @@ public abstract class Braco extends SubsystemBase implements Clever{
 
   protected final DutyCycleEncoder enCycleAdv;
 
-  protected final Deque<Double> positions = new ArrayDeque<>();
+  protected static final Deque<ArmStates> positions = new ArrayDeque<>();
+
+  protected static final Deque<ArmStates> lastPositions = new ArrayDeque<>();
 
   protected Supplier<Double> getTreatedMotion;
-  //same id for all the mechanisms
+
+  static{
+    positions.add(ArmStates.guarda);
+    lastPositions.add(ArmStates.guarda);
+  }
+  //uses the closedLoopPIDFCOntroller
   public Braco(int id) {
     this.motor = new SparkMax(id, MotorType.kBrushless);
 
@@ -44,7 +55,7 @@ public abstract class Braco extends SubsystemBase implements Clever{
 
     motorConfig();
    
-    this.enCycleAdv = new DutyCycleEncoder(id);
+    this.enCycleAdv = null;
 
     this.encoder = motor.getEncoder();
 
@@ -76,6 +87,8 @@ public abstract class Braco extends SubsystemBase implements Clever{
   public Braco(int id, double conversionFactor){
     this(id);
     this.conversionFactor = conversionFactor;
+    incrementalEncoderConfig();
+    buildConfig();
   }
   //one id for each engine, different conversion factors
   public Braco(int id, int idDutyCycleEncoder, double conversionFactor){
@@ -83,7 +96,7 @@ public abstract class Braco extends SubsystemBase implements Clever{
     this.conversionFactor = conversionFactor;
   }
 
-  private final void motorConfig(){
+  protected void motorConfig(){
     this.config
       .smartCurrentLimit(40)
       .idleMode(IdleMode.kBrake);
@@ -92,7 +105,7 @@ public abstract class Braco extends SubsystemBase implements Clever{
   private final void incrementalEncoderConfig(){
     this.config
       .encoder
-      .positionConversionFactor(360*conversionFactor);
+      .positionConversionFactor(conversionFactor);
   }
 
   private final void buildConfig(){ this.motor.configure(config, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters); }
@@ -101,9 +114,15 @@ public abstract class Braco extends SubsystemBase implements Clever{
   public void periodic() {
     treatBoundariesIncremental();
     SmartDashboard.putNumber("Error "+getName(), pidController.getPositionError());
+    try{
+    SmartDashboard.putString("Current State", (positions.peekLast().toString()!=null)?positions.peekLast().toString():"");
+    SmartDashboard.putString("Last State", (positions.peekLast().toString()!=null)?lastPositions.peekLast().toString():"");
+    }catch(NullElementException e){}
+    catch(NullPointerException l){}
+    SmartDashboard.putNumber("Amperagem "+getName(), motor.getOutputCurrent());
   }
 
-  private void treatBoundariesIncremental(){
+  protected void treatBoundariesIncremental(){
     double angle = encoder.getPosition();
     if(angle>360)encoder.setPosition(angle-360);
     if(Math.abs(angle)>360)encoder.setPosition(angle-Math.signum(angle)*360);
@@ -124,9 +143,11 @@ public abstract class Braco extends SubsystemBase implements Clever{
        ResetMode.kNoResetSafeParameters,
         PersistMode.kNoPersistParameters);
   }
-  @Override
-  public void setLastTarget(Double target){
+  public static void setLastTarget(ArmStates target){
     positions.add(target);
+  }
+  public static void setLastPositionTarget(ArmStates target){
+    lastPositions.add(target);
   }
   @Override
   public boolean getPID() {
@@ -154,8 +175,10 @@ public abstract class Braco extends SubsystemBase implements Clever{
   public double getError() {
     return pidController.getPositionError();
   }
-  @Override
-  public Double getLastTarget() {
+  public static ArmStates getLastTarget() {
     return positions.peekLast();
+  }
+  public static ArmStates getLastPositionTarget() {
+    return lastPositions.peekLast();
   }
 }

@@ -1,9 +1,10 @@
 package frc.robot.subsystems.ArmMechanisms;
 import java.util.function.Supplier;
 
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.ArmUtility;
-import frc.robot.Constants.ArmUtility.ArmConstants;
+import frc.robot.Constants.ArmUtility.HighArmConstants;
 
 public class BracoAlto extends Braco{
 
@@ -15,12 +16,12 @@ public class BracoAlto extends Braco{
 
     private final Supplier<Double> getTreatedMotion;
 
-    private final double offset = -0.749;
+    private final double offset = -0.842;
 
     private final double initialComplementarAngle = 92.3;
 
     public BracoAlto() {
-        super(9, 0, .43907793633369923161361141602634);
+        super(9, 0, 1.0);
         
         getTreatedMotion = () -> {
             currentValue = super.enCycleAdv.get();
@@ -35,12 +36,21 @@ public class BracoAlto extends Braco{
     
             return super.enCycleAdv.get() + rotations + offset;
         };
+
+        this.pidController.setPID(HighArmConstants.kP, HighArmConstants.kI, HighArmConstants.kD);
     }
     
     @Override
     public double getAbsolutePosition() {
         double value = getTreatedMotion.get()*conversionFactor*360;
         return value;
+    }
+    @Override
+    protected void motorConfig() {
+        super.motorConfig();
+        super.
+            config.
+                inverted(true);
     }
     @Override
     public double getAbsoluteAngle() {
@@ -56,7 +66,8 @@ public class BracoAlto extends Braco{
         super.periodic();
         SmartDashboard.putNumber("Value alto", super.enCycleAdv.get());
         SmartDashboard.putNumber("Absolute angle braco alto", getAbsoluteAngle());
-        SmartDashboard.putNumber("AUx", rotations);
+        SmartDashboard.putNumber("pid", pidController.getP());
+        SmartDashboard.putNumber("Power braco alto", super.motor.get());
 
         currentValue = getTreatedMotion.get();
     }
@@ -65,9 +76,9 @@ public class BracoAlto extends Braco{
     public void setAbsolutePosition(double position) {
         double nonTreatedPower = pidController.calculate(getAbsoluteAngle(), position);
 
-        double treatedPower = (Math.abs(nonTreatedPower)>ArmUtility.ArmConstants.kMaxOutput)?Math.signum(nonTreatedPower)*ArmConstants.kMaxOutput:nonTreatedPower;
+        double treatedPower = (Math.abs(nonTreatedPower)>ArmUtility.HighArmConstants.kMaxOutput)?Math.signum(nonTreatedPower)*HighArmConstants.kMaxOutput:nonTreatedPower;
         
-        treatedPower-= Math.cos(getAbsoluteAngle()) * ArmConstants.kFF;
+        treatedPower-= Math.cos(getAbsoluteAngle()) * HighArmConstants.kFF;
 
         treatedPower = ((Math.abs(super.pidController.getPositionError())>=180)&&(getAbsoluteAngle()>0))?-Math.abs(treatedPower):treatedPower;
         setArm(treatedPower);

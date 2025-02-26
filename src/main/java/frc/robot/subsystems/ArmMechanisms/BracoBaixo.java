@@ -18,7 +18,7 @@ public class BracoBaixo extends Braco{
 
   private final Supplier<Double> getTreatedMotion;
 
-  private final double offset = -0.114;
+  private final double offset = -0.074;
 
   private final double initialComplementarAngle = 14.0;
   public BracoBaixo(){

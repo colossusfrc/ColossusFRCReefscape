@@ -10,6 +10,7 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.geometry.Translation3d;
+import frc.robot.RCFeatures.Interfaces.ArmInterface.ArmStates;
 import swervelib.math.Matter;
 import swervelib.math.SwerveMath;
 
@@ -92,13 +93,35 @@ public final class Constants {
     }
     public static final class ArmUtility{
       public static final class ArmConstants {
-        public static final double kP = 0.008;
+        public static final double kP = 0.019;
         public static final double kI = 0.0;
-        public static final double kD = 0.00039;
+        public static final double kD = 0.00541;
         public static final double kIz = 0.0;
-        public static final double kFF = 0.046;
+        public static final double kFF = 0.0;
+        public static final double kMaxOutput = 0.4;
+        public static final double kMinOutput = -kMaxOutput;
+      }
+      public static final class HighArmConstants {
+        public static final double kP = 0.0067;
+        public static final double kI = 0.0;
+        public static final double kD = 0.0020;
+        public static final double kIz = 0.0;
+        public static final double kFF = 0.0;
         public static final double kMaxOutput = 0.3;
         public static final double kMinOutput = -kMaxOutput;
       }
+      public static final class ArmPositions{
+         @SuppressWarnings(value = { "rawtypes", "unchecked" })
+          public static HashMap<ArmStates, Double[]> armPositions = new HashMap(6);
+          static{
+              armPositions.put(ArmStates.guarda, new Double[]{90.0, 15.0});
+              armPositions.put(ArmStates.idle, new Double[]{0.0, 0.0});
+              armPositions.put(ArmStates.l1, new Double[]{61.0, 57.0});
+              armPositions.put(ArmStates.l2, new Double[]{30.0, 65.0});
+              armPositions.put(ArmStates.pega, new Double[]{-80.0, 45.0});
+              armPositions.put(ArmStates.pegaChao, new Double[]{-105.0, 15.0});
+              armPositions.put(ArmStates.l3, new Double[]{-35.0, 98.0});
+          }
+        }
     }
 }

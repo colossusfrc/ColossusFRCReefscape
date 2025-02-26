@@ -12,9 +12,7 @@ public class Pidbraco extends Command{
         this.target = target;
         //sobrecarga de método para tirar a potência do braço, se necesário
         this.analizePid = false;
-        //guarda o alvo para a sequência dos estados e permanencia da posição
-        this.braco.setLastTarget(target);
-
+        
         addRequirements(this.braco);
     }
     public Pidbraco(Braco braco, double target, boolean analizePid){
@@ -22,8 +20,6 @@ public class Pidbraco extends Command{
         this.target = target;
 
         this.analizePid = analizePid;
-
-        this.braco.setLastTarget(target);
 
         addRequirements(this.braco);
     }

@@ -8,7 +8,16 @@ import frc.robot.subsystems.ArmMechanisms.BracoAlto;
 import frc.robot.subsystems.ArmMechanisms.BracoBaixo;
 
 public interface ArmInterface {
-     List<Braco> bracos = Arrays.asList(
+     static List<Braco> bracos = Arrays.asList(
     new BracoAlto(),
      new BracoBaixo());
+     enum ArmStates{
+          l1,
+          l2,
+          l3,
+          pega,
+          guarda,
+          pegaChao,
+          idle
+     };
 }
