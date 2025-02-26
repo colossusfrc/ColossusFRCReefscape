@@ -16,7 +16,7 @@ public class BracoAlto extends Braco{
 
     private final Supplier<Double> getTreatedMotion;
 
-    private final double offset = -0.842;
+    private final double offset = -0.709;
 
     private final double initialComplementarAngle = 92.3;
 
@@ -50,7 +50,7 @@ public class BracoAlto extends Braco{
         super.motorConfig();
         super.
             config.
-                inverted(true);
+                inverted(false);
     }
     @Override
     public double getAbsoluteAngle() {

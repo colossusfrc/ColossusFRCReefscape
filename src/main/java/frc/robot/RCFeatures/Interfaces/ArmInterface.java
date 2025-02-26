@@ -18,6 +18,7 @@ public interface ArmInterface {
           pega,
           guarda,
           pegaChao,
+          algee,
           idle
      };
 }

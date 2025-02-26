@@ -4,18 +4,31 @@
   // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
   "version": "0.2.0",
   "configurations": [
-
+    {
+      "type": "java",
+      "name": "ArmCommandSelector",
+      "request": "launch",
+      "mainClass": "frc.robot.RCFeatures.ArmFeatures.ArmCommandSelector",
+      "projectName": "Swerve-stemOS_Java-2025-main"
+    },
+    {
+      "type": "java",
+      "name": "Dijkstra",
+      "request": "launch",
+      "mainClass": "frc.robot.RCFeatures.ArmFeatures.Dijkstra.Dijkstra",
+      "projectName": "Swerve-stemOS_Java-2025-main"
+    },
     {
       "type": "wpilib",
       "name": "WPILib Desktop Debug",
       "request": "launch",
-      "desktop": true,
+      "desktop": true
     },
     {
       "type": "wpilib",
       "name": "WPILib roboRIO Debug",
       "request": "launch",
-      "desktop": false,
+      "desktop": false
     }
   ]
 }

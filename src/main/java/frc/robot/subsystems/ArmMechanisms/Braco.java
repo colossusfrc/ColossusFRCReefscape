@@ -99,7 +99,7 @@ public abstract class Braco extends SubsystemBase implements Clever{
   protected void motorConfig(){
     this.config
       .smartCurrentLimit(40)
-      .idleMode(IdleMode.kBrake);
+      .idleMode(IdleMode.kCoast);
   }
 
   private final void incrementalEncoderConfig(){

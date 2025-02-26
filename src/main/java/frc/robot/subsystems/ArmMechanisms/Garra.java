@@ -37,16 +37,17 @@ public class Garra extends SubsystemBase{
     }
 
     private final void motorConfig(){
-        config.smartCurrentLimit(40);
+        config.smartCurrentLimit(40)
+        .idleMode(IdleMode.kBrake);
         motor.configure(config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
     }
 
     private final void pidConfig(){
         config.closedLoop
-            .pidf(0.8, 0.0, 0.0, 0.0)
+            .pidf(3.0, 0.0, 0.0, 0.0)
             .iZone(0.0)
-            .maxOutput(0.4)
-            .minOutput(-0.4);
+            .maxOutput(1.0)
+            .minOutput(-1.0);
     }
 
     public double getPosition(){ return relativeEncoder.getPosition(); }
@@ -55,6 +56,8 @@ public class Garra extends SubsystemBase{
 
     public void setReference(double position){ this.sparkPid.setReference(position, ControlType.kPosition); }
 
+    public void setPower(double power){ this.motor.set(power); }
+
     public void setBrake(boolean brake){
         config.idleMode((brake)?IdleMode.kBrake:IdleMode.kCoast);
         motor.configureAsync(config, ResetMode.kNoResetSafeParameters, PersistMode.kNoPersistParameters);
@@ -62,6 +65,7 @@ public class Garra extends SubsystemBase{
 
     @Override
     public void periodic() {
+        SmartDashboard.putNumber("power", motor.get());
         SmartDashboard.putNumber("Posicao Garra", getPosition());
     }
 }

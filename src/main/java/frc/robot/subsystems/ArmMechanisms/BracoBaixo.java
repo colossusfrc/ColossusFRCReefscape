@@ -2,6 +2,9 @@ package frc.robot.subsystems.ArmMechanisms;
 
 import java.util.function.Supplier;
 
+import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.SparkLowLevel.MotorType;
+
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.ArmUtility;
 import frc.robot.Constants.ArmUtility.ArmConstants;
@@ -10,6 +13,9 @@ import frc.robot.Constants.ArmUtility.ArmConstants;
  * BracoBaixo
  */
 public class BracoBaixo extends Braco{
+
+  private SparkMax motorAuxiliar = new SparkMax(12, MotorType.kBrushless);
+
   private double lastValue = 0.0;
 
   private double currentValue;
@@ -18,7 +24,7 @@ public class BracoBaixo extends Braco{
 
   private final Supplier<Double> getTreatedMotion;
 
-  private final double offset = -0.074;
+  private final double offset = 0.779;
 
   private final double initialComplementarAngle = 14.0;
   public BracoBaixo(){
@@ -27,7 +33,7 @@ public class BracoBaixo extends Braco{
      0.4285706);
     super.pidController.setTolerance(2);
     getTreatedMotion = () -> {
-        currentValue = super.enCycleAdv.get();
+        currentValue = -super.enCycleAdv.get();
 
         if(lastValue>0.9 && currentValue< 0.1){
             rotations++;
@@ -37,13 +43,19 @@ public class BracoBaixo extends Braco{
 
         lastValue = currentValue;
 
-        return super.enCycleAdv.get() + rotations + offset;
+        return currentValue + rotations + offset;
     };
+  }
+  @Override
+  protected void motorConfig() {
+      super.motorConfig();
+      config.inverted(true);
   }
   @Override
   public void periodic() {
       super.periodic();
       SmartDashboard.putNumber("Value Baixo", super.enCycleAdv.get());
+      SmartDashboard.putNumber("treated value", getTreatedMotion.get());
       SmartDashboard.putNumber("Absolute angle braco Baixo", getAbsoluteAngle());
   
       currentValue = getTreatedMotion.get();
@@ -53,6 +65,12 @@ public class BracoBaixo extends Braco{
   public double getAbsolutePosition() {
     double value = getTreatedMotion.get()*conversionFactor*360;
     return (value<=360.0)?value:value-360.0;
+  }
+  @Override
+  public void setArm(double power) {
+    // TODO Auto-generated method stub
+    super.setArm(power);
+    this.motorAuxiliar.set(-power);
   }
 
   @Override
@@ -71,5 +89,6 @@ public class BracoBaixo extends Braco{
     double treatedPower = (Math.abs(nonTreatedPower)>ArmUtility.ArmConstants.kMaxOutput)?Math.signum(nonTreatedPower)*ArmConstants.kMaxOutput:nonTreatedPower;
 
     setArm(treatedPower);
+
   }
 }

@@ -1,18 +1,23 @@
 package frc.robot.RCFeatures.ArmFeatures;
 
 import java.util.List;
+import java.util.Objects;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import frc.robot.Constants.ArmUtility.ArmPositions;
 import frc.robot.RCFeatures.Interfaces.ArmInterface.ArmStates;
 import frc.robot.commands.Arm.CollectivePIDBraco;
-import frc.robot.commands.Arm.Pidbraco;
 import frc.robot.subsystems.ArmMechanisms.Braco;
 
 public abstract class ArmCommandSelector {
-
-    public static Command getArmCommand(ArmStates armState, List<Braco> braco){
+    public static Command getArmCommand(ArmStates armState, List<Braco> bracos){
+        if(Braco.getLastPositionTarget()==ArmStates.pega&&
+            armState != ArmStates.guarda){
+            return new CollectivePIDBraco(ArmStates.guarda, bracos);
+        }
+            return new CollectivePIDBraco(armState, bracos);
+        
+    }
+    /*public static Command getArmCommand(ArmStates armState, List<Braco> braco){
         Double[] positions = ArmPositions.armPositions.get(armState);
         Command armPerformance = null;
         switch (armState) {
@@ -23,6 +28,7 @@ public abstract class ArmCommandSelector {
                 );
                 break;
             case idle:
+                armState = ArmStates.guarda;
                 break;
             case l1:
                 armPerformance = new ParallelCommandGroup(
@@ -56,14 +62,9 @@ public abstract class ArmCommandSelector {
                 );
                 break;
             default:
-                armState = ArmStates.idle;
+                armState = ArmStates.guarda;
         }
 
         return armPerformance;
-    }
-
-    public static Command getArmCommand(ArmStates armState, List<Braco> bracos, boolean isTest){
-        Command stateDefinedCommand = new CollectivePIDBraco(armState, bracos);
-        return stateDefinedCommand;
-    }
+    }*/
 }

@@ -40,7 +40,7 @@ public class RobotContainer implements IOInterface,
     //testes unitparios do braço
     new ArmUnitTest(controleXbox, bracos);
     //testes unitarios da garra
-    new ClawUnitTest(garra);
+    new ClawUnitTest(garra, controleXbox);
   }
 
 

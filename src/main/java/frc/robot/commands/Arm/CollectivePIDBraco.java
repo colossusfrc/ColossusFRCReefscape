@@ -39,7 +39,4 @@ public class CollectivePIDBraco extends Command {
     public boolean isFinished() {
         return false;
     }
-    private void armIterator(Consumer<? super Braco> r){
-        this.bracos.forEach(r);
-    }
 }
