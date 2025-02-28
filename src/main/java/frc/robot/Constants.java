@@ -120,19 +120,19 @@ public final class Constants {
       public static final class ClawConstants{
       }
       public static final class ArmPositions{
-        public static double armFeedForward = -0.3;
+        public static double armFeedForward = -0.1;
           @SuppressWarnings({ "rawtypes", "unchecked" })
           //ArmState->{posicaoBracoAlto, posicaoBracoBaixo, posicaoGarra}
           public static HashMap<ArmStates, Double[]> armPositions = new HashMap(8);
           static{
               armPositions.put(ArmStates.guarda, new Double[]{75.0, 29.0, 0.0});
-              armPositions.put(ArmStates.idle, new Double[]{0.0, 0.0, 0.0});
+              armPositions.put(ArmStates.pegaAlgeeL3, new Double[]{-25.0, 67.0, -9.5});
               armPositions.put(ArmStates.l1, new Double[]{50.0, 30.0, -8.7});
               armPositions.put(ArmStates.l2, new Double[]{25.0, 35.0, -8.6});
               armPositions.put(ArmStates.pega, new Double[]{15.7, 19.3, -4.7});
-              armPositions.put(ArmStates.pegaChao, new Double[]{84.0, 90.0, 0.0});
+              armPositions.put(ArmStates.pegaAlgeeChao, new Double[]{72.0, 31.4, -8.5});
               armPositions.put(ArmStates.l3, new Double[]{-10.0, 46.5, -9.35});
-              armPositions.put(ArmStates.algee, new Double[]{30.6, 19.906, -13.286});
+              armPositions.put(ArmStates.pegaAlgeeL2, new Double[]{30.6, 19.906, -13.286});
           }
         }
     }

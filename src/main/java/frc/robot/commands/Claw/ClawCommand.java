@@ -1,7 +1,7 @@
 package frc.robot.commands.Claw;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.ArmMechanisms.Superclasses.Garra;
+import frc.robot.subsystems.ArmMechanisms.Garra;
 
 public class ClawCommand extends Command{
     private final Garra garra;

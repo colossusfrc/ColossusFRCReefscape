@@ -1,4 +1,4 @@
-package frc.robot.subsystems.ArmMechanisms.Superclasses;
+package frc.robot.subsystems.ArmMechanisms;
 
 import java.util.Deque;
 import java.util.ArrayDeque;
@@ -118,11 +118,7 @@ public abstract class Braco extends SubsystemBase implements Clever{
   public void periodic() {
     treatBoundariesIncremental();
     SmartDashboard.putNumber("Error "+getName(), pidController.getPositionError());
-    /*try{
-    SmartDashboard.putString("Current State", (positions.peekLast().toString()!=null)?positions.peekLast().toString():"");
-    SmartDashboard.putString("Last State", (positions.peekLast().toString()!=null)?lastPositions.peekLast().toString():"");
-    }catch(NullElementException e){}
-    catch(NullPointerException l){}*/
+    SmartDashboard.putNumber("valor", conversionFactor);
     SmartDashboard.putString("past state", stateMachine.getAnterior().toString());
     SmartDashboard.putString("current state", stateMachine.getAtual().toString());
     SmartDashboard.putNumber("Amperagem "+getName(), motor.getOutputCurrent());

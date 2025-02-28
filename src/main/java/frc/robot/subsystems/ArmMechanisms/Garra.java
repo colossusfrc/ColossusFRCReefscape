@@ -1,4 +1,4 @@
-package frc.robot.subsystems.ArmMechanisms.Superclasses;
+package frc.robot.subsystems.ArmMechanisms;
 
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkClosedLoopController;

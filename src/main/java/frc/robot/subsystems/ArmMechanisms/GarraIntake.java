@@ -1,7 +1,5 @@
 package frc.robot.subsystems.ArmMechanisms;
 
-import frc.robot.subsystems.ArmMechanisms.Superclasses.Garra;
-
 public class GarraIntake extends Garra{
     public GarraIntake(){
         super(13);

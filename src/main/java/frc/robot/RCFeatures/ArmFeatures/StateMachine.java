@@ -28,7 +28,7 @@ public class StateMachine {
     }
     //condições de passagem dos estados
     private ArmStates stateCondiitons(ArmStates hipotheticalState) {
-        if((atual==ArmStates.pega||atual == ArmStates.algee)&&hipotheticalState!=ArmStates.guarda)return ArmStates.guarda;
+        if((atual==ArmStates.pega||atual == ArmStates.pegaAlgeeL2)&&hipotheticalState!=ArmStates.guarda)return ArmStates.guarda;
         return hipotheticalState;
     }
 }

@@ -9,8 +9,8 @@ import frc.robot.RCFeatures.ArmFeatures.ArmCommandFactory;
 import frc.robot.RCFeatures.ArmFeatures.StateMachine;
 import frc.robot.RCFeatures.Interfaces.ArmInterface.ArmStates;
 import frc.robot.commands.Arm.Pidbraco;
-import frc.robot.subsystems.ArmMechanisms.Superclasses.Braco;
-import frc.robot.subsystems.ArmMechanisms.Superclasses.Garra;
+import frc.robot.subsystems.ArmMechanisms.Braco;
+import frc.robot.subsystems.ArmMechanisms.Garra;
 
 public class ArmUnitTest{
     private final CommandXboxController controleXbox;
@@ -52,7 +52,13 @@ public class ArmUnitTest{
       ArmCommandFactory.getArmCommand(ArmStates.guarda, bracos, stateMachine, garra)
     );
     controleXbox.back().toggleOnTrue(
-      ArmCommandFactory.getArmCommand(ArmStates.algee, bracos, stateMachine, garra)
+      ArmCommandFactory.getArmCommand(ArmStates.pegaAlgeeL2, bracos, stateMachine, garra)
+    );
+    controleXbox.rightStick().toggleOnTrue(
+      ArmCommandFactory.getArmCommand(ArmStates.pegaAlgeeL3, bracos, stateMachine, garra)
+    );
+    controleXbox.leftStick().toggleOnTrue(
+      ArmCommandFactory.getArmCommand(ArmStates.pegaAlgeeChao, bracos, stateMachine, garra)
     );
   }
 }

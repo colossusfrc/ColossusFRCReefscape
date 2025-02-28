@@ -34,6 +34,7 @@ import swervelib.parser.SwerveParser;
 /** 
  * Classe de subsistema onde fazemos a ponte do nosso código para YAGSL
  */
+//da stemos
 public class SwerveSubsystem extends SubsystemBase {
     // Objeto global da SwerveDrive (Classe YAGSL)
     SwerveDrive swerveDrive;

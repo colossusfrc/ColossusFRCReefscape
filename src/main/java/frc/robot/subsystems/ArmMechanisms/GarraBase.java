@@ -1,7 +1,6 @@
 package frc.robot.subsystems.ArmMechanisms;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.subsystems.ArmMechanisms.Superclasses.Garra;
 
 public class GarraBase extends Garra{
     public GarraBase(){

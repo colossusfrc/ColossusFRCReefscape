@@ -38,7 +38,7 @@ public class RobotContainer implements IOInterface,
     //testes unitários do swerve
     new SwerveUnitTest(swerve, controleXbox);
     //testes unitparios do braço
-    //new ArmUnitTest(controleXbox, bracos, stateMachine, garraBase);
+    new ArmUnitTest(controleXbox, bracos, stateMachine, garraBase);
     //testes unitarios da garra
     new ClawUnitTest(garraIntake, garraBase, controleXbox);
   }

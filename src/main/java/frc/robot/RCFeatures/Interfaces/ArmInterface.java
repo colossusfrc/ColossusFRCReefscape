@@ -4,9 +4,9 @@ import java.util.Arrays;
 import java.util.List;
 
 import frc.robot.RCFeatures.ArmFeatures.StateMachine;
+import frc.robot.subsystems.ArmMechanisms.Braco;
 import frc.robot.subsystems.ArmMechanisms.BracoAlto;
 import frc.robot.subsystems.ArmMechanisms.BracoBaixo;
-import frc.robot.subsystems.ArmMechanisms.Superclasses.Braco;
 
 public interface ArmInterface {
      enum ArmStates{
@@ -15,9 +15,9 @@ public interface ArmInterface {
           l3,
           pega,
           guarda,
-          pegaChao,
-          algee,
-          idle
+          pegaAlgeeChao,
+          pegaAlgeeL2,
+          pegaAlgeeL3
      };
      static StateMachine stateMachine = new StateMachine();
      static List<Braco> bracos = Arrays.asList(
