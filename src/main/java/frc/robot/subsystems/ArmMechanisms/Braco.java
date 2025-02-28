@@ -177,6 +177,9 @@ public abstract class Braco extends SubsystemBase implements Clever{
   public double getError() {
     return pidController.getPositionError();
   }
+  public void resetIntegrator(){
+    pidController.reset();
+  }
   /*public static ArmStates getLastTarget() {
     return positions.peekLast();
   }

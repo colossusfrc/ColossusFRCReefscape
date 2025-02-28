@@ -7,6 +7,7 @@ package frc.robot;
 import frc.robot.Constants.Controle;
 
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.RCFeatures.Interfaces.ArmInterface;
 import frc.robot.RCFeatures.Interfaces.ClawInterface;
@@ -15,6 +16,8 @@ import frc.robot.RCFeatures.Interfaces.SwerveInterface;
 import frc.robot.RCFeatures.UnitTests.ArmUnitTest;
 import frc.robot.RCFeatures.UnitTests.ClawUnitTest;
 import frc.robot.RCFeatures.UnitTests.SwerveUnitTest;
+import frc.robot.autonomous.AutonomousFactory;
+import frc.robot.subsystems.SwerveSubsystem;
 
 public class RobotContainer implements IOInterface,
  ArmInterface,
@@ -51,7 +54,14 @@ public class RobotContainer implements IOInterface,
 
   public Command getAutonomousCommand()
   {
-    return swerve.getAutonomousCommand(swerve.getAutonomousRoutine(), true);
+    return swerve.getAutonomousCommand(SwerveSubsystem.getAutonomousRoutine(), true);
+  }
+  public Command getSequentialAutonomousCommand(){
+    return AutonomousFactory.getAutonomousCommand(
+      bracos,
+       swerve,
+        garraIntake,
+         garraBase);
   }
   
 

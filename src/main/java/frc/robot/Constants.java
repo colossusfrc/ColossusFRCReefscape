@@ -44,6 +44,27 @@ public final class Constants {
    }
 
    public static final class AutonConstants{
+    public static final class LimelightConstants{
+      public static final String limelightName = "limelight_one";
+      public static final double kpTheta = 0.0;
+      public static final double kiTheta = 0.0;
+      public static final double kdTheta = 0.0;
+      public static final double iThetaRange = 0.0;
+      public static final double kpX = 0.0;
+      public static final double kiX = 0.0;
+      public static final double kdX = 0.0;
+      public static final double iXRange = 0.0;
+      public static final double kpY = 0.0;
+      public static final double kiY = 0.0;
+      public static final double kdY = 0.0;
+      public static final double iYRange = 0.0;
+      public static final double kMaxOutput = 0.0;
+      public static final double kMinOutput = -kMaxOutput;
+
+      public static final Pose2d cameraOffsets = new Pose2d(0.0, 0.0, new Rotation2d(0.0));
+      public static final double armTimeout = 0.0;
+
+    }
     private static final String[] labels = {
       "bleu 1",
       "bleu 2",
@@ -62,8 +83,12 @@ public final class Constants {
     };
 
     public static final HashMap<String, Pose2d> initialPositionsByLabels = new HashMap<>();
+    public static final HashMap<String, Integer> tagIdsByLabels = new HashMap<>();
     static{
-      for(int i = 0; i<6; i++)initialPositionsByLabels.put(labels[i], initialPositions[i]); 
+      for(int i = 0; i<6; i++){
+        initialPositionsByLabels.put(labels[i], initialPositions[i]); 
+        tagIdsByLabels.put(labels[i], i);
+      }
     }
    }
 
@@ -101,7 +126,7 @@ public final class Constants {
       public static final class ArmConstants {
         public static final double kP = 0.03;
         public static final double kI = 0.0;
-        public static final double kD = 0.001;
+        public static final double kD = 0.00024;
         public static final double kIz = 0.0;
         public static final double kFF = 0.0;
         public static final double kMaxOutput = 0.6;
@@ -110,11 +135,11 @@ public final class Constants {
       //constantes do braço alto
       public static final class HighArmConstants {
         public static final double kP = 0.01;
-        public static final double kI = 0.0;
-        public static final double kD = 0.0009;
+        public static final double kI = 0.0008;
+        public static final double kD = 0.00132;
         public static final double kIz = 0.0;
         public static final double kFF = 0.0;
-        public static final double kMaxOutput = 0.6;
+        public static final double kMaxOutput = 1.0;
         public static final double kMinOutput = -kMaxOutput;
       }
       public static final class ClawConstants{
@@ -129,7 +154,7 @@ public final class Constants {
               armPositions.put(ArmStates.pegaAlgeeL3, new Double[]{-25.0, 67.0, -9.5});
               armPositions.put(ArmStates.l1, new Double[]{50.0, 30.0, -8.7});
               armPositions.put(ArmStates.l2, new Double[]{25.0, 35.0, -8.6});
-              armPositions.put(ArmStates.pega, new Double[]{15.7, 19.3, -4.7});
+              armPositions.put(ArmStates.pega, new Double[]{15.7, 29.0, -4.7});
               armPositions.put(ArmStates.pegaAlgeeChao, new Double[]{72.0, 31.4, -8.5});
               armPositions.put(ArmStates.l3, new Double[]{-10.0, 46.5, -9.35});
               armPositions.put(ArmStates.pegaAlgeeL2, new Double[]{30.6, 19.906, -13.286});

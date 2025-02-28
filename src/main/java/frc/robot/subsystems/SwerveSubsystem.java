@@ -236,7 +236,7 @@ public class SwerveSubsystem extends SubsystemBase {
     return new PathPlannerAuto(pathName);
   }
 
-  public String getAutonomousRoutine()
+  public static String getAutonomousRoutine()
   {
     String alliance = (DriverStation.getAlliance().get() == Alliance.Red)?"rouge ":"bleu ";
 

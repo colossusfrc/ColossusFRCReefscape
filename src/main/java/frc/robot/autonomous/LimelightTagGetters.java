@@ -6,11 +6,11 @@ import java.util.function.Function;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import frc.robot.Constants.AutonConstants.LimelightConstants;
 
 public class LimelightTagGetters {
     private PIDController pid;
-    public enum Alliance{red, blue};
     public enum Axis{x, y, theta};
     private Function<Double, Double> pidGetter;
     public LimelightTagGetters(Alliance fieldAttributes, Axis axis, int tagId){
@@ -33,7 +33,7 @@ public class LimelightTagGetters {
         LimelightHelpers.setPriorityTagID(LimelightConstants.limelightName, tagId);
     }
     private Pose2d getPose(Alliance fieldAttributes){
-        return (fieldAttributes==Alliance.red)?
+        return (fieldAttributes==Alliance.Red)?
         LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2(LimelightConstants.limelightName).pose
         :LimelightHelpers.getBotPoseEstimate_wpiRed_MegaTag2(LimelightConstants.limelightName).pose;
     }
