@@ -1,4 +1,4 @@
-package frc.robot.subsystems.ArmMechanisms;
+package frc.robot.subsystems.ArmMechanisms.Interfaces;
 public interface Clever {
 
     double getAbsolutePosition();
@@ -10,7 +10,7 @@ public interface Clever {
 
     boolean getPID();
 
-    void setAbsolutePosition(double target);
+    void setAbsolutePosition(double target, double feedForward);
     void stopArm();
     void setArm(double power);
 }

@@ -1,4 +1,4 @@
-package frc.robot.subsystems.ArmMechanisms;
+package frc.robot.subsystems.ArmMechanisms.Superclasses;
 
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkClosedLoopController;
@@ -14,15 +14,20 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Garra extends SubsystemBase{
-    private final SparkMax motor = new SparkMax(11, MotorType.kBrushless);
+    protected final SparkMax motor; //11
 
-    private final SparkMaxConfig config = new SparkMaxConfig();
+    //protected final SparkMax motorAlto;//13
 
-    private final RelativeEncoder relativeEncoder;
+    protected final SparkMaxConfig config = new SparkMaxConfig();
 
-    private final SparkClosedLoopController sparkPid;
+    protected final RelativeEncoder relativeEncoder;
 
-    public Garra(){
+    protected final SparkClosedLoopController sparkPid;
+
+    public Garra(int id){
+
+        this.motor = new SparkMax(id, MotorType.kBrushless);
+
         pidConfig();
 
         motorConfig();
@@ -36,19 +41,26 @@ public class Garra extends SubsystemBase{
         setBrake(true);
     }
 
-    private final void motorConfig(){
+    protected void motorConfig(){
         config.smartCurrentLimit(40)
-        .idleMode(IdleMode.kBrake);
+        .idleMode(IdleMode.kCoast)
+        .encoder
+            .positionConversionFactor(1.0);
         motor.configure(config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
     }
-
-    private final void pidConfig(){
+    protected void pidConfig(){
         config.closedLoop
-            .pidf(3.0, 0.0, 0.0, 0.0)
+            .pidf(0.3, 0.0, 0.0, 0.0)
             .iZone(0.0)
             .maxOutput(1.0)
             .minOutput(-1.0);
     }
+
+    public void setBrake(boolean brake){
+        config.idleMode((brake)?IdleMode.kBrake:IdleMode.kCoast);
+        motor.configureAsync(config, ResetMode.kNoResetSafeParameters, PersistMode.kNoPersistParameters);
+    }
+
 
     public double getPosition(){ return relativeEncoder.getPosition(); }
 
@@ -58,15 +70,14 @@ public class Garra extends SubsystemBase{
 
     public void setPower(double power){ this.motor.set(power); }
 
-    public void setBrake(boolean brake){
-        config.idleMode((brake)?IdleMode.kBrake:IdleMode.kCoast);
-        motor.configureAsync(config, ResetMode.kNoResetSafeParameters, PersistMode.kNoPersistParameters);
-    }
-
     @Override
     public void periodic() {
         SmartDashboard.putNumber("power", motor.get());
         SmartDashboard.putNumber("Posicao Garra", getPosition());
+    }
+    
+    public void resetEncoder(){
+        relativeEncoder.setPosition(0.0);
     }
 }
 

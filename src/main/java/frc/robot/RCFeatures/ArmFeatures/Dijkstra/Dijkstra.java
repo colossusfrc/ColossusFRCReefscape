@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Set;
 
 import frc.robot.Constants;
-
+@Deprecated
 public class Dijkstra {
     private static  double[][] vertices;
     private static Dijkstra dijkstra;

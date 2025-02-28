@@ -1,4 +1,4 @@
-package frc.robot.subsystems.ArmMechanisms;
+package frc.robot.subsystems.ArmMechanisms.Superclasses;
 
 import java.util.Deque;
 import java.util.ArrayDeque;
@@ -21,7 +21,9 @@ import java.util.function.Supplier;
 
 import org.dyn4j.exception.NullElementException;
 
+import frc.robot.RCFeatures.ArmFeatures.StateMachine;
 import frc.robot.RCFeatures.Interfaces.ArmInterface.ArmStates;
+import frc.robot.subsystems.ArmMechanisms.Interfaces.Clever;
 
 public abstract class Braco extends SubsystemBase implements Clever{
 
@@ -37,18 +39,16 @@ public abstract class Braco extends SubsystemBase implements Clever{
 
   protected final DutyCycleEncoder enCycleAdv;
 
-  protected static final Deque<ArmStates> positions = new ArrayDeque<>();
-
-  protected static final Deque<ArmStates> lastPositions = new ArrayDeque<>();
+  private final StateMachine stateMachine;
 
   protected Supplier<Double> getTreatedMotion;
 
-  static{
+  /*static{
     positions.add(ArmStates.guarda);
     lastPositions.add(ArmStates.guarda);
-  }
+  }*/
   //uses the closedLoopPIDFCOntroller
-  public Braco(int id) {
+  public Braco(int id, StateMachine stateMachine) {
     this.motor = new SparkMax(id, MotorType.kBrushless);
 
     config = new SparkMaxConfig();
@@ -64,9 +64,11 @@ public abstract class Braco extends SubsystemBase implements Clever{
     this.pidController = new PIDController(ArmUtility.ArmConstants.kP, ArmUtility.ArmConstants.kI, ArmUtility.ArmConstants.kD);
 
     buildConfig();
+
+    this.stateMachine = stateMachine;
   }
   //one id for each engine
-  public Braco(int idEngine, int idDutyCycleEncoder){
+  public Braco(int idEngine, int idDutyCycleEncoder, StateMachine stateMachine){
     this.motor = new SparkMax(idEngine, MotorType.kBrushless);
 
     config = new SparkMaxConfig();
@@ -82,17 +84,19 @@ public abstract class Braco extends SubsystemBase implements Clever{
     this.pidController = new PIDController(ArmUtility.ArmConstants.kP, ArmUtility.ArmConstants.kI, ArmUtility.ArmConstants.kD);
 
     buildConfig();
+
+    this.stateMachine = stateMachine;
   }
   //one id for all engines, different conversion factors
-  public Braco(int id, double conversionFactor){
-    this(id);
+  public Braco(int id, double conversionFactor, StateMachine stateMachine){
+    this(id, stateMachine);
     this.conversionFactor = conversionFactor;
     incrementalEncoderConfig();
     buildConfig();
   }
   //one id for each engine, different conversion factors
-  public Braco(int id, int idDutyCycleEncoder, double conversionFactor){
-    this(id, idDutyCycleEncoder);
+  public Braco(int id, int idDutyCycleEncoder, double conversionFactor, StateMachine stateMachine){
+    this(id, idDutyCycleEncoder, stateMachine);
     this.conversionFactor = conversionFactor;
   }
 
@@ -114,11 +118,13 @@ public abstract class Braco extends SubsystemBase implements Clever{
   public void periodic() {
     treatBoundariesIncremental();
     SmartDashboard.putNumber("Error "+getName(), pidController.getPositionError());
-    try{
+    /*try{
     SmartDashboard.putString("Current State", (positions.peekLast().toString()!=null)?positions.peekLast().toString():"");
     SmartDashboard.putString("Last State", (positions.peekLast().toString()!=null)?lastPositions.peekLast().toString():"");
     }catch(NullElementException e){}
-    catch(NullPointerException l){}
+    catch(NullPointerException l){}*/
+    SmartDashboard.putString("past state", stateMachine.getAnterior().toString());
+    SmartDashboard.putString("current state", stateMachine.getAtual().toString());
     SmartDashboard.putNumber("Amperagem "+getName(), motor.getOutputCurrent());
   }
 
@@ -143,12 +149,12 @@ public abstract class Braco extends SubsystemBase implements Clever{
        ResetMode.kNoResetSafeParameters,
         PersistMode.kNoPersistParameters);
   }
-  public static void setLastTarget(ArmStates target){
+  /*public static void setLastTarget(ArmStates target){
     positions.add(target);
   }
   public static void setLastPositionTarget(ArmStates target){
     lastPositions.add(target);
-  }
+  }*/
   @Override
   public boolean getPID() {
       return pidController.atSetpoint();
@@ -175,10 +181,10 @@ public abstract class Braco extends SubsystemBase implements Clever{
   public double getError() {
     return pidController.getPositionError();
   }
-  public static ArmStates getLastTarget() {
+  /*public static ArmStates getLastTarget() {
     return positions.peekLast();
   }
   public static ArmStates getLastPositionTarget() {
     return lastPositions.peekLast();
-  }
+  }*/
 }

@@ -39,23 +39,23 @@ public class SwerveUnitTest {
     }
     private void swerveUnitTestHeadingJoysticjInputs(){
         controleXbox.povDown().toggleOnTrue(swerve.driveCommandAlinharComJoystick(
-        () -> MathUtil.applyDeadband(-controleXbox.getLeftY()*Controle.limit, Constants.Controle.DEADBAND),
-        () -> MathUtil.applyDeadband(-controleXbox.getLeftX()*Controle.limit, Constants.Controle.DEADBAND), 
+        () -> MathUtil.applyDeadband(-controleXbox.getLeftY()*Controle.limit.get(), Constants.Controle.DEADBAND),
+        () -> MathUtil.applyDeadband(-controleXbox.getLeftX()*Controle.limit.get(), Constants.Controle.DEADBAND), 
         ()->0.0, 
         ()->90));
         controleXbox.povUp().toggleOnTrue(swerve.driveCommandAlinharComJoystick(
-        () -> MathUtil.applyDeadband(-controleXbox.getLeftY()*Controle.limit, Constants.Controle.DEADBAND),
-        () -> MathUtil.applyDeadband(-controleXbox.getLeftX()*Controle.limit, Constants.Controle.DEADBAND), 
+        () -> MathUtil.applyDeadband(-controleXbox.getLeftY()*Controle.limit.get(), Constants.Controle.DEADBAND),
+        () -> MathUtil.applyDeadband(-controleXbox.getLeftX()*Controle.limit.get(), Constants.Controle.DEADBAND), 
         ()->0.0, 
         ()->-90.0));
         controleXbox.povRight().toggleOnTrue(swerve.driveCommandAlinharComJoystick(
-        () -> MathUtil.applyDeadband(-controleXbox.getLeftY()*Controle.limit, Constants.Controle.DEADBAND),
-        () -> MathUtil.applyDeadband(-controleXbox.getLeftX()*Controle.limit, Constants.Controle.DEADBAND), 
+        () -> MathUtil.applyDeadband(-controleXbox.getLeftY()*Controle.limit.get(), Constants.Controle.DEADBAND),
+        () -> MathUtil.applyDeadband(-controleXbox.getLeftX()*Controle.limit.get(), Constants.Controle.DEADBAND), 
         ()->90.0, 
         ()->0.0));
         controleXbox.povLeft().toggleOnTrue(swerve.driveCommandAlinharComJoystick(
-        () -> MathUtil.applyDeadband(-controleXbox.getLeftY()*Controle.limit, Constants.Controle.DEADBAND),
-        () -> MathUtil.applyDeadband(-controleXbox.getLeftX()*Controle.limit, Constants.Controle.DEADBAND), 
+        () -> MathUtil.applyDeadband(-controleXbox.getLeftY()*Controle.limit.get(), Constants.Controle.DEADBAND),
+        () -> MathUtil.applyDeadband(-controleXbox.getLeftX()*Controle.limit.get(), Constants.Controle.DEADBAND), 
         ()->-90.0, 
         ()->0.0));
     }

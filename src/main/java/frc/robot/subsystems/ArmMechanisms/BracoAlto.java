@@ -1,10 +1,13 @@
 package frc.robot.subsystems.ArmMechanisms;
+import java.lang.Thread.State;
 import java.util.function.Supplier;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.ArmUtility;
 import frc.robot.Constants.ArmUtility.HighArmConstants;
+import frc.robot.RCFeatures.ArmFeatures.StateMachine;
+import frc.robot.subsystems.ArmMechanisms.Superclasses.Braco;
 
 public class BracoAlto extends Braco{
 
@@ -20,8 +23,8 @@ public class BracoAlto extends Braco{
 
     private final double initialComplementarAngle = 92.3;
 
-    public BracoAlto() {
-        super(9, 0, 1.0);
+    public BracoAlto(StateMachine stateMachine) {
+        super(9, 0, 1.0, stateMachine);
         
         getTreatedMotion = () -> {
             currentValue = super.enCycleAdv.get();
@@ -73,7 +76,7 @@ public class BracoAlto extends Braco{
     }
  
     @Override
-    public void setAbsolutePosition(double position) {
+    public void setAbsolutePosition(double position, double feedForward) {
         double nonTreatedPower = pidController.calculate(getAbsoluteAngle(), position);
 
         double treatedPower = (Math.abs(nonTreatedPower)>ArmUtility.HighArmConstants.kMaxOutput)?Math.signum(nonTreatedPower)*HighArmConstants.kMaxOutput:nonTreatedPower;
@@ -81,7 +84,7 @@ public class BracoAlto extends Braco{
         treatedPower-= Math.cos(getAbsoluteAngle()) * HighArmConstants.kFF;
 
         treatedPower = ((Math.abs(super.pidController.getPositionError())>=180)&&(getAbsoluteAngle()>0))?-Math.abs(treatedPower):treatedPower;
-        setArm(treatedPower);
+        setArm(treatedPower+feedForward);
     }
 
     @Override

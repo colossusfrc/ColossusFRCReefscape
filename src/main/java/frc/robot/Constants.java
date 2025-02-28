@@ -5,6 +5,7 @@
 package frc.robot;
 
 import java.util.HashMap;
+import java.util.function.Supplier;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -24,8 +25,10 @@ public final class Constants {
     // Tempo de loop (sparkMax + normal = 130ms)
     public static final double LOOP_TIME = 0.13;
     // Massa do robô *DEVE SER CONFIGURADO PARA O SEU ROBÔ*
+    //precisa ser calculado
     public static final double ROBOT_MASS = 38;
     //Velocidade máxima *DEVE SER CONFIGURADO PARA O SEU ROBÔ*
+    //tem que fazer
     public static final double MAX_SPEED = 4;
     //Posição do módulo mais longe *COLOQUE OS MESMOS VALORES DO JSON*
     private static final Translation2d FURTHEST_MODULE_POSE = new Translation2d(11.75, 11.75);
@@ -65,11 +68,13 @@ public final class Constants {
    }
 
     // Contem a porta em que o controle está
-    public static final class Controle {
-      public static final double limit = 0.8;
+    public static class Controle {
+      public static Supplier<Double> limit = ()->0.8;
+      public static final double maxLimit = 0.8;
+      public static final double minLimit = 0.6;
       // Porta do controle
       public static final int xboxControle = 0;
-      
+      public static final int xboxControlePiloto2 = 1;
       // Deadband do controle
       public static final double DEADBAND = 0.2;
     }
@@ -92,39 +97,42 @@ public final class Constants {
       public static final double coeficienteCorecaoAngVel = 4;
     }
     public static final class ArmUtility{
+      //constants do braço baixi
       public static final class ArmConstants {
-        public static final double kP = 0.01;
+        public static final double kP = 0.03;
         public static final double kI = 0.0;
-        public static final double kD = 0.00027;
+        public static final double kD = 0.001;
         public static final double kIz = 0.0;
         public static final double kFF = 0.0;
         public static final double kMaxOutput = 0.6;
         public static final double kMinOutput = -kMaxOutput;
       }
+      //constantes do braço alto
       public static final class HighArmConstants {
         public static final double kP = 0.01;
         public static final double kI = 0.0;
-        public static final double kD = 0.00075;
+        public static final double kD = 0.0009;
         public static final double kIz = 0.0;
         public static final double kFF = 0.0;
         public static final double kMaxOutput = 0.6;
         public static final double kMinOutput = -kMaxOutput;
       }
       public static final class ClawConstants{
-        public static final double kPositionAlgee = -4.4;
       }
       public static final class ArmPositions{
-         @SuppressWarnings(value = { "rawtypes", "unchecked" })
-          public static HashMap<ArmStates, Double[]> armPositions = new HashMap(7);
+        public static double armFeedForward = -0.3;
+          @SuppressWarnings({ "rawtypes", "unchecked" })
+          //ArmState->{posicaoBracoAlto, posicaoBracoBaixo, posicaoGarra}
+          public static HashMap<ArmStates, Double[]> armPositions = new HashMap(8);
           static{
-              armPositions.put(ArmStates.guarda, new Double[]{75.0, 29.0});
-              armPositions.put(ArmStates.idle, new Double[]{0.0, 0.0});
-              armPositions.put(ArmStates.l1, new Double[]{53.0, 34.0});
-              armPositions.put(ArmStates.l2, new Double[]{13.0, 40.0});
-              armPositions.put(ArmStates.pega, new Double[]{26.0, 29.0});
-              armPositions.put(ArmStates.pegaChao, new Double[]{75.0, 29.0});
-              armPositions.put(ArmStates.l3, new Double[]{55.0, 90.0});
-              armPositions.put(ArmStates.algee, new Double[]{54.0, 52.0});
+              armPositions.put(ArmStates.guarda, new Double[]{75.0, 29.0, 0.0});
+              armPositions.put(ArmStates.idle, new Double[]{0.0, 0.0, 0.0});
+              armPositions.put(ArmStates.l1, new Double[]{50.0, 30.0, -8.7});
+              armPositions.put(ArmStates.l2, new Double[]{25.0, 35.0, -8.6});
+              armPositions.put(ArmStates.pega, new Double[]{15.7, 19.3, -4.7});
+              armPositions.put(ArmStates.pegaChao, new Double[]{84.0, 90.0, 0.0});
+              armPositions.put(ArmStates.l3, new Double[]{-10.0, 46.5, -9.35});
+              armPositions.put(ArmStates.algee, new Double[]{30.6, 19.906, -13.286});
           }
         }
     }

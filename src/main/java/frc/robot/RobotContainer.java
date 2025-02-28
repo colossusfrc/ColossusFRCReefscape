@@ -15,7 +15,6 @@ import frc.robot.RCFeatures.Interfaces.SwerveInterface;
 import frc.robot.RCFeatures.UnitTests.ArmUnitTest;
 import frc.robot.RCFeatures.UnitTests.ClawUnitTest;
 import frc.robot.RCFeatures.UnitTests.SwerveUnitTest;
-import frc.robot.subsystems.ArmMechanisms.Garra;
 
 public class RobotContainer implements IOInterface,
  ArmInterface,
@@ -23,6 +22,7 @@ public class RobotContainer implements IOInterface,
     ClawInterface
    {
   public RobotContainer() {
+    super();
     // Configure the trigger bindings
     configureBindings();
   }
@@ -32,15 +32,15 @@ public class RobotContainer implements IOInterface,
     // Definimos o comando padrão como a tração
     swerve.setDefaultCommand(
       swerve.driveCommand(
-        () -> MathUtil.applyDeadband(-controleXbox.getLeftY()*Controle.limit, Constants.Controle.DEADBAND),
-        () -> MathUtil.applyDeadband(-controleXbox.getLeftX()*Controle.limit, Constants.Controle.DEADBAND),
-        () -> -controleXbox.getRightX()*Controle.limit));
+        () -> MathUtil.applyDeadband(-controleXbox.getLeftY()*Controle.limit.get(), Constants.Controle.DEADBAND),
+        () -> MathUtil.applyDeadband(-controleXbox.getLeftX()*Controle.limit.get(), Constants.Controle.DEADBAND),
+        () -> -controleXbox.getRightX()*Controle.limit.get()));
     //testes unitários do swerve
     new SwerveUnitTest(swerve, controleXbox);
     //testes unitparios do braço
-    new ArmUnitTest(controleXbox, bracos);
+    //new ArmUnitTest(controleXbox, bracos, stateMachine, garraBase);
     //testes unitarios da garra
-    new ClawUnitTest(garra, controleXbox);
+    new ClawUnitTest(garraIntake, garraBase, controleXbox);
   }
 
 

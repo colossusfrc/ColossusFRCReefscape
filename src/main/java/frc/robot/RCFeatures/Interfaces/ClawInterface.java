@@ -1,7 +1,9 @@
 package frc.robot.RCFeatures.Interfaces;
 
-import frc.robot.subsystems.ArmMechanisms.Garra;
+import frc.robot.subsystems.ArmMechanisms.GarraBase;
+import frc.robot.subsystems.ArmMechanisms.GarraIntake;
 
 public interface ClawInterface {
-    static Garra garra = new Garra();
+    static GarraIntake garraIntake = new GarraIntake();
+    static GarraBase garraBase = new GarraBase();
 }

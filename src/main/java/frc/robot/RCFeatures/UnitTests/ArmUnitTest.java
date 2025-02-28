@@ -2,109 +2,57 @@ package frc.robot.RCFeatures.UnitTests;
 
 import java.util.List;
 
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants;
-import frc.robot.RCFeatures.ArmFeatures.ArmCommandSelector;
+import frc.robot.Constants.ArmUtility.ArmPositions;
+import frc.robot.RCFeatures.ArmFeatures.ArmCommandFactory;
+import frc.robot.RCFeatures.ArmFeatures.StateMachine;
 import frc.robot.RCFeatures.Interfaces.ArmInterface.ArmStates;
 import frc.robot.commands.Arm.Pidbraco;
-import frc.robot.subsystems.ArmMechanisms.Braco;
+import frc.robot.subsystems.ArmMechanisms.Superclasses.Braco;
+import frc.robot.subsystems.ArmMechanisms.Superclasses.Garra;
 
 public class ArmUnitTest{
     private final CommandXboxController controleXbox;
     private final List<Braco> bracos;
+    private final StateMachine stateMachine;
+    private final Garra garra;
 
-    public ArmUnitTest(CommandXboxController controleXbox, List<Braco> bracos){
+    public ArmUnitTest(CommandXboxController controleXbox, List<Braco> bracos, StateMachine stateMachine, Garra garra){
         this.controleXbox = controleXbox;
         this.bracos = bracos;
+        this.stateMachine = stateMachine;
+        this.garra = garra;
 
         armRoutineManager();
     }
     private void armRoutineManager(){
       bracos.get(0).setDefaultCommand(
-        new Pidbraco(bracos.get(0), Constants.ArmUtility.ArmPositions.armPositions.get(ArmStates.guarda)[0])
+        new Pidbraco(bracos.get(0), Constants.ArmUtility.ArmPositions.armPositions.get(ArmStates.guarda)[0], 0.0)
       );
       bracos.get(1).setDefaultCommand(
-        new Pidbraco(bracos.get(1), Constants.ArmUtility.ArmPositions.armPositions.get(ArmStates.guarda)[1])
+        new Pidbraco(bracos.get(1), Constants.ArmUtility.ArmPositions.armPositions.get(ArmStates.guarda)[1], ArmPositions.armFeedForward)
       );
         treeUnitTest();
     }
-    private void doubleArmTest(){
-      controleXbox.x().toggleOnTrue(
-        new Pidbraco(bracos.get(0), -90)
-      );
-      controleXbox.a().toggleOnTrue(
-        new Pidbraco(bracos.get(0), 90));
-      controleXbox.b().toggleOnTrue(
-        new Pidbraco(bracos.get(1), 45)
-      );
-    }
-    private void lowArmUnitTest(){
-      controleXbox.a().toggleOnTrue(
-        new Pidbraco(bracos.get(1), 25));
-    controleXbox.x().toggleOnTrue(
-        new Pidbraco(bracos.get(1), 45));
-    controleXbox.b().toggleOnTrue(
-        new Pidbraco(bracos.get(1), 60));
-    controleXbox.y().toggleOnTrue(
-        new Pidbraco(bracos.get(1), 75));
-    }
-    private void highArmUnitTest(){
-      controleXbox.a().toggleOnTrue(
-        new Pidbraco(bracos.get(0), 90));
-    controleXbox.x().toggleOnTrue(
-        new Pidbraco(bracos.get(0), 53));
-    controleXbox.y().toggleOnTrue(
-        new Pidbraco(bracos.get(0), 13));
-    controleXbox.start().toggleOnTrue(
-        new Pidbraco(bracos.get(0), -55));
-    }
-    private void armUnitTest(){
-    controleXbox.a().toggleOnTrue(
-      new ParallelCommandGroup(
-        new Pidbraco(bracos.get(0), 15),
-        new Pidbraco(bracos.get(1), 90)
-      ));
-    controleXbox.b().toggleOnTrue(
-      new ParallelCommandGroup(
-        new Pidbraco(bracos.get(0), -105),
-        new Pidbraco(bracos.get(1), 15)
-      )
-    );
-    controleXbox.x().toggleOnTrue(
-      new ParallelCommandGroup(
-        new Pidbraco(bracos.get(0), 45),
-        new Pidbraco(bracos.get(1), 90)
-      ));
-    controleXbox.y().toggleOnTrue(
-      new ParallelCommandGroup(
-        new Pidbraco(bracos.get(0), -80),
-        new Pidbraco(bracos.get(1), 45)
-      ));
-    controleXbox.start().toggleOnTrue(
-      new ParallelCommandGroup(
-        new Pidbraco(bracos.get(0), 90),
-        new Pidbraco(bracos.get(1), 15)
-      ));
-  }
   private void treeUnitTest(){
     controleXbox.a().toggleOnTrue(
-      ArmCommandSelector.getArmCommand(ArmStates.l1, bracos)
+      ArmCommandFactory.getArmCommand(ArmStates.l1, bracos, stateMachine, garra)
     );
     controleXbox.x().toggleOnTrue(
-      ArmCommandSelector.getArmCommand(ArmStates.l2, bracos)
+      ArmCommandFactory.getArmCommand(ArmStates.l2, bracos, stateMachine, garra)
     );
     controleXbox.y().toggleOnTrue(
-      ArmCommandSelector.getArmCommand(ArmStates.pega, bracos)
+      ArmCommandFactory.getArmCommand(ArmStates.pega, bracos, stateMachine, garra)
     );
     controleXbox.b().toggleOnTrue(
-      ArmCommandSelector.getArmCommand(ArmStates.l3, bracos)
+      ArmCommandFactory.getArmCommand(ArmStates.l3, bracos, stateMachine, garra)
     );
     controleXbox.start().toggleOnTrue(
-      ArmCommandSelector.getArmCommand(ArmStates.guarda, bracos)
+      ArmCommandFactory.getArmCommand(ArmStates.guarda, bracos, stateMachine, garra)
     );
     controleXbox.back().toggleOnTrue(
-      ArmCommandSelector.getArmCommand(ArmStates.pegaChao, bracos)
+      ArmCommandFactory.getArmCommand(ArmStates.algee, bracos, stateMachine, garra)
     );
   }
 }
