@@ -51,8 +51,7 @@ public class RobotContainer implements IOInterface,
 
   public Command getAutonomousCommand()
   {
-    //return swerve.getAutonomousCommand(swerve.getAutonomousRoutine(), true);
-    return null;
+    return swerve.getAutonomousCommand(swerve.getAutonomousRoutine(), true);
   }
   
 
