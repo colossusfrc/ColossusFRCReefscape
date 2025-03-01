@@ -46,12 +46,16 @@ public class Pidbraco extends Command{
         addRequirements(this.braco);
     }
     @Override
+    public void initialize() {
+    }
+    @Override
     public void execute() {
         braco.setAbsolutePosition(target, feedForward);
     }
 
     @Override
     public void end(boolean interrupted) {
+        braco.setP();
         braco.stopArm();
     }
 

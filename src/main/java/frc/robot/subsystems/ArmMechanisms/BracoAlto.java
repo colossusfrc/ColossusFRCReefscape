@@ -1,10 +1,12 @@
 package frc.robot.subsystems.ArmMechanisms;
 import java.lang.Thread.State;
+import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.ArmUtility;
+import frc.robot.Constants.ArmUtility.ArmConstants;
 import frc.robot.Constants.ArmUtility.HighArmConstants;
 import frc.robot.RCFeatures.ArmFeatures.StateMachine;
 
@@ -22,9 +24,25 @@ public class BracoAlto extends Braco{
 
     private final double initialComplementarAngle = 92.3;
 
+    private Consumer<Boolean> setThisPid;
+
+    private boolean hasChangedPID = false;
+
     public BracoAlto(StateMachine stateMachine) {
         super(9, 0, 1.0, stateMachine);
         
+        setThisPid = (mustChangePID)->{
+            if(!mustChangePID){
+                pidController.setP(HighArmConstants.kP);
+                this.hasChangedPID = false;
+                return;
+            }else{
+            pidController.setP(HighArmConstants.kPguardaPega);  
+                this.hasChangedPID = true;
+                return;
+            }
+        };
+
         getTreatedMotion = () -> {
             currentValue = super.enCycleAdv.get();
 
@@ -72,6 +90,8 @@ public class BracoAlto extends Braco{
         SmartDashboard.putNumber("Power braco alto", super.motor.get());
 
         currentValue = getTreatedMotion.get();
+
+        setThisPid.accept(stateMachine.getPidSpecialitites());
     }
  
     @Override
@@ -89,5 +109,13 @@ public class BracoAlto extends Braco{
     @Override
     public String getName() {
         return this.getSubsystem();
+    }
+    @Override
+    public boolean getHasChangedPID(){
+        return hasChangedPID;
+    }
+    @Override
+    public void setP() {
+        this.pidController.setP(HighArmConstants.kP);
     }
 }

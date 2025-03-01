@@ -39,7 +39,7 @@ public abstract class Braco extends SubsystemBase implements Clever{
 
   protected final DutyCycleEncoder enCycleAdv;
 
-  private final StateMachine stateMachine;
+  protected final StateMachine stateMachine;
 
   protected Supplier<Double> getTreatedMotion;
 
@@ -180,6 +180,8 @@ public abstract class Braco extends SubsystemBase implements Clever{
   public void resetIntegrator(){
     pidController.reset();
   }
+  public abstract boolean getHasChangedPID();
+  public abstract void setP();
   /*public static ArmStates getLastTarget() {
     return positions.peekLast();
   }

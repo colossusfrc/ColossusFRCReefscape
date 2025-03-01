@@ -93,4 +93,12 @@ public class BracoBaixo extends Braco{
     setArm(treatedPower+feedForward);
 
   }
+  @Override
+  public boolean getHasChangedPID() {
+    return false;
+  }
+  @Override
+  public void setP() {
+    return;
+  }
 }

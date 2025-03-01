@@ -53,4 +53,13 @@ public class BracoAltoEncoder extends Braco{
     public String getName() {
         return this.getSubsystem();
     }
+
+    @Override
+    public boolean getHasChangedPID() {
+        return false;
+    }
+    @Override
+    public void setP() {
+        return;
+    }
 }

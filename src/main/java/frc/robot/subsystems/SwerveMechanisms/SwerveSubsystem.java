@@ -24,6 +24,8 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Constants.SwerveConfigs;
+import frc.robot.Constants.AutonConstants.LimelightConstants;
+import frc.robot.autonomous.LimelightHelpers;
 import swervelib.SwerveController;
 import swervelib.SwerveDrive;
 import swervelib.telemetry.SwerveDriveTelemetry;
@@ -35,7 +37,7 @@ import swervelib.parser.SwerveParser;
  * Classe de subsistema onde fazemos a ponte do nosso código para YAGSL
  */
 //da stemos
-public class SwerveSubsystem extends SubsystemBase {
+public class SwerveSubsystem extends SubsystemBase{
     // Objeto global da SwerveDrive (Classe YAGSL)
     SwerveDrive swerveDrive;
 
@@ -60,8 +62,17 @@ public class SwerveSubsystem extends SubsystemBase {
     public void periodic() {
       // Dentro da função periódica atualizamos nossa odometria
       swerveDrive.updateOdometry();
-
-      SmartDashboard.putString("auto:", getAutonomousRoutine());
+      LimelightHelpers.SetRobotOrientation(
+        LimelightConstants.limelightName, 
+        this.getHeading().getDegrees(), 
+        0,
+         0,
+          0,
+           0,
+            0);
+            try{
+      SmartDashboard.putString("command:", getCurrentCommand().toString());
+            }catch(NullPointerException e){}
     }
 
       public void setupPathPlanner() {

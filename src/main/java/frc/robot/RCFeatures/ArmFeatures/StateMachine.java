@@ -6,6 +6,7 @@ public class StateMachine {
     @Deprecated
     private ArmStates anterior;
     private ArmStates atual;
+    private boolean pidSpecialities = false;
 
     public StateMachine(){
         this.anterior = ArmStates.guarda;
@@ -28,8 +29,11 @@ public class StateMachine {
     }
     //condições de passagem dos estados
     private ArmStates stateCondiitons(ArmStates hipotheticalState) {
-        if((atual==ArmStates.pega||atual == ArmStates.pegaAlgeeL2)&&hipotheticalState!=ArmStates.guarda)return ArmStates.guarda;
+        this.pidSpecialities = (atual==ArmStates.pega&&hipotheticalState==ArmStates.guarda);
+        if((atual==ArmStates.pega||atual == ArmStates.pegaAlgeeL2)&& hipotheticalState!=ArmStates.guarda)return ArmStates.guarda;
         return hipotheticalState;
     }
+
+    public boolean getPidSpecialitites(){ return pidSpecialities; }
 }
 

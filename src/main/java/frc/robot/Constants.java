@@ -45,24 +45,24 @@ public final class Constants {
 
    public static final class AutonConstants{
     public static final class LimelightConstants{
-      public static final String limelightName = "limelight_one";
+      public static final String limelightName = "limelight-one";
       public static final double kpTheta = 0.0;
       public static final double kiTheta = 0.0;
       public static final double kdTheta = 0.0;
-      public static final double iThetaRange = 0.0;
+      public static final double iThetaRange = 10.0;
       public static final double kpX = 0.0;
       public static final double kiX = 0.0;
       public static final double kdX = 0.0;
-      public static final double iXRange = 0.0;
+      public static final double iXRange = 10.0;
       public static final double kpY = 0.0;
       public static final double kiY = 0.0;
       public static final double kdY = 0.0;
-      public static final double iYRange = 0.0;
+      public static final double iYRange = 10.0;
       public static final double kMaxOutput = 0.0;
       public static final double kMinOutput = -kMaxOutput;
 
       public static final Pose2d cameraOffsets = new Pose2d(0.0, 0.0, new Rotation2d(0.0));
-      public static final double armTimeout = 0.0;
+      public static final double armTimeout = 2.0;
 
     }
     private static final String[] labels = {
@@ -87,7 +87,7 @@ public final class Constants {
     static{
       for(int i = 0; i<6; i++){
         initialPositionsByLabels.put(labels[i], initialPositions[i]); 
-        tagIdsByLabels.put(labels[i], i);
+        tagIdsByLabels.put(labels[i], 17);
       }
     }
    }
@@ -124,25 +124,28 @@ public final class Constants {
     public static final class ArmUtility{
       //constants do braço baixi
       public static final class ArmConstants {
-        public static final double kP = 0.03;
-        public static final double kI = 0.0;
-        public static final double kD = 0.00024;
+        public static final double kP = 0.04;
+        public static final double kI = 0.01;
+        public static final double kD = 0.00036;
         public static final double kIz = 0.0;
         public static final double kFF = 0.0;
-        public static final double kMaxOutput = 0.6;
+        public static final double kMaxOutput = 1.0;
         public static final double kMinOutput = -kMaxOutput;
       }
       //constantes do braço alto
       public static final class HighArmConstants {
         public static final double kP = 0.01;
-        public static final double kI = 0.0008;
-        public static final double kD = 0.00132;
+        public static final double kPguardaPega = 0.006;
+        public static final double kI = 0.0000;
+        public static final double kD = 0.0;
         public static final double kIz = 0.0;
         public static final double kFF = 0.0;
         public static final double kMaxOutput = 1.0;
         public static final double kMinOutput = -kMaxOutput;
       }
       public static final class ClawConstants{
+        public static final double clawReceive = 0.2;
+        public static final double clawDrop = -0.1;
       }
       public static final class ArmPositions{
         public static double armFeedForward = -0.1;

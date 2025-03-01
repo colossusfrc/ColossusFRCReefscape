@@ -1,5 +1,6 @@
 package frc.robot.autonomous;
 
+import java.util.HashMap;
 import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
 import java.util.function.Function;
@@ -7,29 +8,37 @@ import java.util.function.Function;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.AutonConstants;
 import frc.robot.Constants.AutonConstants.LimelightConstants;
 
-public class LimelightTagGetters {
+public class LimelightTagGetters extends SubsystemBase{
     private PIDController pid;
     public enum Axis{x, y, theta};
     private Function<Double, Double> pidGetter;
+    private Alliance fieldAttributes;
+    private Axis axis;
+    private HashMap<Axis, PIDController> getPid = new HashMap<>();
+    private HashMap<Axis, Double> getIzone = new HashMap<>();
+    {
+        getPid.put(Axis.x, new PIDController(LimelightConstants.kpX, LimelightConstants.kiX, LimelightConstants.kdX));
+        getPid.put(Axis.y, new PIDController(LimelightConstants.kpY, LimelightConstants.kiY, LimelightConstants.kdY));
+        getPid.put(Axis.theta, new PIDController(LimelightConstants.kpTheta, LimelightConstants.kiTheta, LimelightConstants.kdTheta));
+        getIzone.put(Axis.x, LimelightConstants.iXRange);
+        getIzone.put(Axis.y, LimelightConstants.iYRange);
+        getIzone.put(Axis.theta, LimelightConstants.iThetaRange);
+    }
     public LimelightTagGetters(Alliance fieldAttributes, Axis axis, int tagId){
-        switch (axis) {
-            case theta:
-            pid = new PIDController(LimelightConstants.kpTheta, LimelightConstants.kiTheta, LimelightConstants.kdTheta);
-            pid.setIZone(LimelightConstants.iThetaRange);
-            break;
-            case x:
-            pid = new PIDController(LimelightConstants.kpX, LimelightConstants.kiX, LimelightConstants.kdX);
-            pid.setIZone(LimelightConstants.iXRange);
-            break;
-            case y:
-            pid = new PIDController(LimelightConstants.kpY, LimelightConstants.kiY, LimelightConstants.kdY);
-            pid.setIZone(LimelightConstants.iYRange);
-            break;
-        }
+        LimelightHelpers.SetFiducialIDFiltersOverride(LimelightConstants.limelightName, new int[]{tagId});
+        this.pid = getPid.get(axis);
+        this.pid.setIZone(getIzone.get(axis));
+        this.pid.setTolerance(getIzone.get(axis));
+        this.fieldAttributes = fieldAttributes;
+        this.axis = axis;
         pidGetter = (setPoint)->{
-            return getPid(getAxis(fieldAttributes, axis), setPoint);};
+            boolean isVisible = LimelightHelpers.getTV(LimelightConstants.limelightName);
+            return (isVisible)?getPid(getAxis(fieldAttributes, axis), setPoint):0.0;};
         LimelightHelpers.setPriorityTagID(LimelightConstants.limelightName, tagId);
     }
     private Pose2d getPose(Alliance fieldAttributes){
@@ -38,9 +47,11 @@ public class LimelightTagGetters {
         :LimelightHelpers.getBotPoseEstimate_wpiRed_MegaTag2(LimelightConstants.limelightName).pose;
     }
     private Double getAxis(Alliance fieldAttributes, Axis axis){
+        boolean isVisible = LimelightHelpers.getTV(LimelightConstants.limelightName);
+        if(!isVisible)return 0.0;
         switch (axis) {
             case theta:
-            return getPose(fieldAttributes).getRotation().getDegrees();
+            return LimelightHelpers.getRawFiducials(LimelightConstants.limelightName)[0].txnc;
             case x:
             return getPose(fieldAttributes).getX();
             case y:
@@ -60,6 +71,13 @@ public class LimelightTagGetters {
         return ()-> this.pidGetter.apply(alvo);
     }
     public BooleanSupplier getPid(){
-        return ()->this.pid.atSetpoint();
+        return ()->Math.abs(this.pid.getError())<LimelightConstants.iXRange;
+    }
+    public double getValue(){ return getAxis(fieldAttributes, axis); }
+    @Override
+    public void periodic() {
+        SmartDashboard.putNumber(axis.toString()+" value", getValue());
+        SmartDashboard.putBoolean(axis.toString()+" pid", getPid().getAsBoolean());
+        SmartDashboard.putNumber(axis+" erro", this.pid.getError());
     }
 }

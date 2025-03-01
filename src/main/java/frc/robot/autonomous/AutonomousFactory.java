@@ -33,7 +33,7 @@ public class AutonomousFactory {
          LimelightTagGetters limelightTagGettersY = new LimelightTagGetters(fieldAttributes, Axis.y, AutonConstants.tagIdsByLabels.get(path));
           LimelightTagGetters limelightTagGettersTheta = new LimelightTagGetters(fieldAttributes, Axis.theta, AutonConstants.tagIdsByLabels.get(path));
     return new SequentialCommandGroup(
-        new PathPlannerAuto(SwerveSubsystem.getAutonomousRoutine()),
+        new PathPlannerAuto(SwerveSubsystem.getAutonomousRoutine()).withTimeout(2.0),
             new AutoAlignTag(swerveSubsystem,
                  LimelightConstants.cameraOffsets,
                   limelightTagGettersX, limelightTagGettersY,
@@ -42,8 +42,12 @@ public class AutonomousFactory {
                    .withTimeout(
                     LimelightConstants.armTimeout
                    ),
-                    new ClawTestCommand(garraIntake, -0.1),
-                        new CollectivePIDBraco(ArmStates.guarda, bracos, garraIntake)
+                    new ClawTestCommand(garraIntake, -0.1).withTimeout(
+                        LimelightConstants.armTimeout
+                       ),
+                        new CollectivePIDBraco(ArmStates.guarda, bracos, garraIntake).withTimeout(
+                            LimelightConstants.armTimeout
+                           )
         );
     }
 }

@@ -14,15 +14,15 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Garra extends SubsystemBase{
-    protected final SparkMax motor; //11
+    protected SparkMax motor; //11
 
     //protected final SparkMax motorAlto;//13
 
     protected final SparkMaxConfig config = new SparkMaxConfig();
 
-    protected final RelativeEncoder relativeEncoder;
+    protected RelativeEncoder relativeEncoder;
 
-    protected final SparkClosedLoopController sparkPid;
+    protected SparkClosedLoopController sparkPid;
 
     public Garra(int id){
 
