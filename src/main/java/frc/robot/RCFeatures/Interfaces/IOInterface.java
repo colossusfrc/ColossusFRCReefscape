@@ -5,5 +5,5 @@ import frc.robot.Constants.Controle;
 
 public interface IOInterface {
     // Controle de Xbox, troque para o qual sua equipe estará utilizando
-    CommandXboxController controleXbox = new CommandXboxController(Controle.xboxControle);
+    static CommandXboxController controleXbox = new CommandXboxController(Controle.xboxControle);
 }

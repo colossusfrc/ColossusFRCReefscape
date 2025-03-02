@@ -1,10 +1,21 @@
 package frc.robot.subsystems.ArmMechanisms;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Constants.ArmUtility.ClawConstants;
+import frc.robot.subsystems.ArmMechanisms.Superclasses.Garra;
 
 public class GarraBase extends Garra{
-    public GarraBase(){
-        super(11);
+
+    private static GarraBase instance;
+    public static synchronized GarraBase getInstance(){
+        if(instance==null){
+        instance = new GarraBase();
+        }
+        return instance;
+    }
+
+    private GarraBase(){
+        super(ClawConstants.baseId);
     }
     @Override
     protected void pidConfig() {

@@ -1,7 +1,4 @@
-package frc.robot.subsystems.ArmMechanisms;
-
-import java.util.Deque;
-import java.util.ArrayDeque;
+package frc.robot.subsystems.ArmMechanisms.Superclasses;
 
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
@@ -19,10 +16,7 @@ import frc.robot.Constants.ArmUtility;
 
 import java.util.function.Supplier;
 
-import org.dyn4j.exception.NullElementException;
-
 import frc.robot.RCFeatures.ArmFeatures.StateMachine;
-import frc.robot.RCFeatures.Interfaces.ArmInterface.ArmStates;
 import frc.robot.subsystems.ArmMechanisms.Interfaces.Clever;
 
 public abstract class Braco extends SubsystemBase implements Clever{
@@ -42,13 +36,8 @@ public abstract class Braco extends SubsystemBase implements Clever{
   protected final StateMachine stateMachine;
 
   protected Supplier<Double> getTreatedMotion;
-
-  /*static{
-    positions.add(ArmStates.guarda);
-    lastPositions.add(ArmStates.guarda);
-  }*/
-  //uses the closedLoopPIDFCOntroller
-  public Braco(int id, StateMachine stateMachine) {
+  
+  private Braco(int id, StateMachine stateMachine) {
     this.motor = new SparkMax(id, MotorType.kBrushless);
 
     config = new SparkMaxConfig();
@@ -145,12 +134,6 @@ public abstract class Braco extends SubsystemBase implements Clever{
        ResetMode.kNoResetSafeParameters,
         PersistMode.kNoPersistParameters);
   }
-  /*public static void setLastTarget(ArmStates target){
-    positions.add(target);
-  }
-  public static void setLastPositionTarget(ArmStates target){
-    lastPositions.add(target);
-  }*/
   @Override
   public boolean getPID() {
       return pidController.atSetpoint();
@@ -182,10 +165,4 @@ public abstract class Braco extends SubsystemBase implements Clever{
   }
   public abstract boolean getHasChangedPID();
   public abstract void setP();
-  /*public static ArmStates getLastTarget() {
-    return positions.peekLast();
-  }
-  public static ArmStates getLastPositionTarget() {
-    return lastPositions.peekLast();
-  }*/
 }

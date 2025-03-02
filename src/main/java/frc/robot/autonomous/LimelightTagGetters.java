@@ -1,7 +1,6 @@
 package frc.robot.autonomous;
 
 import java.util.HashMap;
-import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
 import java.util.function.Function;
 
@@ -14,6 +13,15 @@ import frc.robot.Constants.AutonConstants;
 import frc.robot.Constants.AutonConstants.LimelightConstants;
 
 public class LimelightTagGetters extends SubsystemBase{
+    static{
+        LimelightHelpers.setCameraPose_RobotSpace(AutonConstants.LimelightConstants.limelightName,
+        AutonConstants.LimelightConstants.limelightV0[0],
+        AutonConstants.LimelightConstants.limelightV0[1],
+        AutonConstants.LimelightConstants.limelightV0[2],
+        AutonConstants.LimelightConstants.limelightV0[3],
+        AutonConstants.LimelightConstants.limelightV0[4],
+        AutonConstants.LimelightConstants.limelightV0[5]);
+    }
     private PIDController pid;
     public enum Axis{x, y, theta};
     private Function<Double, Double> pidGetter;
@@ -49,14 +57,13 @@ public class LimelightTagGetters extends SubsystemBase{
     private Double getAxis(Alliance fieldAttributes, Axis axis){
         boolean isVisible = LimelightHelpers.getTV(LimelightConstants.limelightName);
         if(!isVisible)return 0.0;
-        switch (axis) {
-            case theta:
-            return LimelightHelpers.getRawFiducials(LimelightConstants.limelightName)[0].txnc;
-            case x:
-            return getPose(fieldAttributes).getX();
-            case y:
-            return getPose(fieldAttributes).getY();
-        }
+        try{
+            switch (axis) {
+                case theta:return LimelightHelpers.getRawFiducials(LimelightConstants.limelightName)[0].txnc;
+                case x:return getPose(fieldAttributes).getX();
+                case y:return getPose(fieldAttributes).getY();
+            }
+        }catch(ArrayIndexOutOfBoundsException e){}
         return (axis==Axis.x)?getPose(fieldAttributes).getX():getPose(fieldAttributes).getY();
     }
     private Double getPid(double measurement,double setPoint){ 
@@ -70,14 +77,17 @@ public class LimelightTagGetters extends SubsystemBase{
     public DoubleSupplier getOutput(Double alvo){
         return ()-> this.pidGetter.apply(alvo);
     }
-    public BooleanSupplier getPid(){
-        return ()->Math.abs(this.pid.getError())<LimelightConstants.iXRange;
+    public boolean getPid(){
+        return Math.abs(this.pid.getError())<LimelightConstants.iXRange;
     }
     public double getValue(){ return getAxis(fieldAttributes, axis); }
     @Override
     public void periodic() {
-        SmartDashboard.putNumber(axis.toString()+" value", getValue());
-        SmartDashboard.putBoolean(axis.toString()+" pid", getPid().getAsBoolean());
-        SmartDashboard.putNumber(axis+" erro", this.pid.getError());
+        try{
+            SmartDashboard.putNumber(axis.toString()+" value", getValue());
+            SmartDashboard.putBoolean(axis.toString()+" pid", getPid());
+            SmartDashboard.putNumber(axis+" erro", this.pid.getError());
+        }catch(NullPointerException e){e.printStackTrace();}
+        
     }
 }

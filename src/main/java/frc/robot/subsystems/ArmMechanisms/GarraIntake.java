@@ -1,8 +1,20 @@
 package frc.robot.subsystems.ArmMechanisms;
 
+import frc.robot.Constants.ArmUtility.ClawConstants;
+import frc.robot.subsystems.ArmMechanisms.Superclasses.Garra;
+
 public class GarraIntake extends Garra{
-    public GarraIntake(){
-        super(13);
+
+    private static GarraIntake instance;
+    public static synchronized GarraIntake getInstance(){
+        if(instance==null){
+        instance = new GarraIntake();
+        }
+        return instance;
+    }
+
+    private GarraIntake(){
+        super(ClawConstants.intakeId);
     }
     @Override
     protected void pidConfig() {

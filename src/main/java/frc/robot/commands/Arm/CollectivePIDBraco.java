@@ -5,8 +5,8 @@ import frc.robot.Constants.Controle;
 import frc.robot.Constants.ArmUtility.ArmPositions;
 import frc.robot.RCFeatures.Interfaces.ArmInterface.ArmStates;
 import frc.robot.commands.Claw.ClawCommand;
-import frc.robot.subsystems.ArmMechanisms.Braco;
-import frc.robot.subsystems.ArmMechanisms.Garra;
+import frc.robot.subsystems.ArmMechanisms.Superclasses.Braco;
+import frc.robot.subsystems.ArmMechanisms.Superclasses.Garra;
 
 import java.util.List;
 
@@ -36,10 +36,10 @@ public class CollectivePIDBraco extends Command {
             Controle.minLimit:
             Controle.maxLimit);
         //controle do BRAÇO ALTO[0]
-        new Pidbraco(
+        /*new Pidbraco(
             this.bracos.get(0),
              ArmPositions.armPositions.get(armState)[0]
-             , 0.0).execute();
+             , 0.0).execute();*/
         //controle do BRAÇO BAIXO[1]
         new Pidbraco(this.bracos.get(1),
          ArmPositions.armPositions.get(armState)[1]

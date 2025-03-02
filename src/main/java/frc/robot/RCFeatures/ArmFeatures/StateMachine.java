@@ -7,8 +7,15 @@ public class StateMachine {
     private ArmStates anterior;
     private ArmStates atual;
     private boolean pidSpecialities = false;
+    private static StateMachine instance;
+    public static StateMachine getInstance(){
+        if(instance==null){
+        instance = new StateMachine();
+        }
+        return instance;
+    }
 
-    public StateMachine(){
+    private StateMachine(){
         this.anterior = ArmStates.guarda;
         this.atual = ArmStates.guarda;
     }

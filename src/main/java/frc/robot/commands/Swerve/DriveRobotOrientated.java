@@ -1,4 +1,4 @@
-package frc.robot.commands;
+package frc.robot.commands.Swerve;
 
 import java.util.List;
 import java.util.function.DoubleSupplier;
@@ -7,7 +7,7 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.Dimensoes;
 import frc.robot.Constants.SwerveConfigs;
-import frc.robot.subsystems.SwerveSubsystem;
+import frc.robot.subsystems.SwerveMechanisms.SwerveSubsystem;
 import swervelib.SwerveController;
 import swervelib.math.SwerveMath;
 

@@ -7,8 +7,8 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SelectCommand;
 import frc.robot.RCFeatures.Interfaces.ArmInterface.ArmStates;
 import frc.robot.commands.Arm.CollectivePIDBraco;
-import frc.robot.subsystems.ArmMechanisms.Braco;
-import frc.robot.subsystems.ArmMechanisms.Garra;
+import frc.robot.subsystems.ArmMechanisms.Superclasses.Braco;
+import frc.robot.subsystems.ArmMechanisms.Superclasses.Garra;
 
 public abstract class ArmCommandFactory {
     public static Command getArmCommand(ArmStates armState, List<Braco> bracos, StateMachine stateMachine, Garra garra){

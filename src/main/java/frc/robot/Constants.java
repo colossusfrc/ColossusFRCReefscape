@@ -44,6 +44,7 @@ public final class Constants {
    }
 
    public static final class AutonConstants{
+    //só mexer aqui
     public static final class LimelightConstants{
       public static final String limelightName = "limelight-one";
       public static final double kpTheta = 0.0;
@@ -61,8 +62,15 @@ public final class Constants {
       public static final double kMaxOutput = 0.0;
       public static final double kMinOutput = -kMaxOutput;
 
-      public static final Pose2d cameraOffsets = new Pose2d(0.0, 0.0, new Rotation2d(0.0));
       public static final double armTimeout = 2.0;
+
+      public static final double[] limelightV0 = new double[]{
+        0.0,//frente
+         0.0,//direita
+          0.0,//cima
+           0.0,//0.0
+            0.0,//pitch
+             0.0};//0.0
 
     }
     private static final String[] labels = {
@@ -81,13 +89,44 @@ public final class Constants {
       new Pose2d(10, 4, new Rotation2d(0)),
       new Pose2d(10, 6, new Rotation2d(0))
     };
-
+    private static final Pose2d[] cameraTargetPoses = {
+      new Pose2d(5.430, 2.485, new Rotation2d(0.0)),
+      new Pose2d(7.6, 4, new Rotation2d(0.0)),
+      new Pose2d(7.6, 6, new Rotation2d(0.0)),
+      new Pose2d(10, 2, new Rotation2d(0.0)),
+      new Pose2d(10, 4, new Rotation2d(0.0)),
+      new Pose2d(10, 6, new Rotation2d(0.0))
+    };
+    private static final Rotation2d[] cameraHeadings = {
+      new Rotation2d(120.0),
+      new Rotation2d(180.0),
+      new Rotation2d(-120.0),
+      new Rotation2d(60.0),
+      new Rotation2d(0.0),
+      new Rotation2d(-60.0)
+    };
+    private static final int[] tagIds = {
+      22,
+      21,
+      20,
+      11,
+      10,
+      9
+    };
+    //posicoes iniciais do autonomo
     public static final HashMap<String, Pose2d> initialPositionsByLabels = new HashMap<>();
+    //tags a partir da driverstation
     public static final HashMap<String, Integer> tagIdsByLabels = new HashMap<>();
+    //targets da camera
+    public static final HashMap<String, Pose2d> cameraOffsets = new HashMap<>();
+    //posicoes alvo 
+    public static final HashMap<String, Rotation2d> cameraTargetHeadings = new HashMap<>();
     static{
       for(int i = 0; i<6; i++){
         initialPositionsByLabels.put(labels[i], initialPositions[i]); 
-        tagIdsByLabels.put(labels[i], 17);
+        tagIdsByLabels.put(labels[i], tagIds[i]);
+        cameraOffsets.put(labels[i], cameraTargetPoses[i]);
+        cameraTargetHeadings.put(labels[i], cameraHeadings[i]);
       }
     }
    }
@@ -124,6 +163,10 @@ public final class Constants {
     public static final class ArmUtility{
       //constants do braço baixi
       public static final class ArmConstants {
+        public static final int id = 10;
+        public static final int idEncoder = 1;
+        public static final double conversionFactor = 0.4285706;
+        public static final double offset = 0.779;
         public static final double kP = 0.04;
         public static final double kI = 0.01;
         public static final double kD = 0.00036;
@@ -134,6 +177,9 @@ public final class Constants {
       }
       //constantes do braço alto
       public static final class HighArmConstants {
+        public static final int id = 9;
+        public static final int idEncoder = 0;
+        public static final double offset = -0.709;
         public static final double kP = 0.01;
         public static final double kPguardaPega = 0.006;
         public static final double kI = 0.0000;
@@ -146,6 +192,8 @@ public final class Constants {
       public static final class ClawConstants{
         public static final double clawReceive = 0.2;
         public static final double clawDrop = -0.1;
+        public static final int baseId = 11;
+        public static final int intakeId = 13;
       }
       public static final class ArmPositions{
         public static double armFeedForward = -0.1;

@@ -4,6 +4,6 @@ import frc.robot.subsystems.ArmMechanisms.GarraBase;
 import frc.robot.subsystems.ArmMechanisms.GarraIntake;
 
 public interface ClawInterface {
-    static GarraIntake garraIntake = new GarraIntake();
-    static GarraBase garraBase = new GarraBase();
+    static GarraIntake garraIntake = GarraIntake.getInstance();
+    static GarraBase garraBase = GarraBase.getInstance();
 }

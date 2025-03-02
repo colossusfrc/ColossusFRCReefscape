@@ -1,11 +1,15 @@
 package frc.robot.RCFeatures.UnitTests;
 
 import edu.wpi.first.math.MathUtil;
-import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants;
+import frc.robot.Constants.AutonConstants;
 import frc.robot.Constants.Controle;
-import frc.robot.subsystems.SwerveSubsystem;
+import frc.robot.RCFeatures.Interfaces.AutoInterface;
+import frc.robot.autonomous.AutonomousFactory;
+import frc.robot.subsystems.SwerveMechanisms.SwerveSubsystem;
 
 public class SwerveUnitTest {
     private final SwerveSubsystem swerve;
@@ -13,7 +17,13 @@ public class SwerveUnitTest {
     public SwerveUnitTest(SwerveSubsystem swerve, CommandXboxController controleXbox){
         this.swerve = swerve;
         this.controleXbox = controleXbox;
-          swerveUnitTestHeadingJoysticjInputs();
+          alignTagCommand();
+    }
+    private void alignTagCommand(){
+      controleXbox.povUp().toggleOnTrue(AutonomousFactory.alignTagToPosition(AutonConstants.cameraOffsets.get(SwerveSubsystem.getAutonomousRoutine())));
+    controleXbox.povDown().onTrue(SwerveSubsystem.getInstance().resetOdometryCommand(
+      new Pose2d(AutoInterface.robotPoseDueTag(),
+      AutonConstants.cameraTargetHeadings.get(SwerveSubsystem.getAutonomousRoutine()))));
     }
     private void swerveUnitTestHeading(){
         controleXbox.povDown().toggleOnTrue(swerve.driveCommandAlinharComJoystick(

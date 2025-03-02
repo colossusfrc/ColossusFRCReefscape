@@ -4,12 +4,12 @@ import java.util.Arrays;
 import java.util.List;
 
 import frc.robot.RCFeatures.ArmFeatures.StateMachine;
-import frc.robot.subsystems.ArmMechanisms.Braco;
 import frc.robot.subsystems.ArmMechanisms.BracoAlto;
 import frc.robot.subsystems.ArmMechanisms.BracoBaixo;
+import frc.robot.subsystems.ArmMechanisms.Superclasses.Braco;
 
 public interface ArmInterface {
-     enum ArmStates{
+     static enum ArmStates{
           l1,
           l2,
           l3,
@@ -19,8 +19,8 @@ public interface ArmInterface {
           pegaAlgeeL2,
           pegaAlgeeL3
      };
-     static StateMachine stateMachine = new StateMachine();
+     static StateMachine stateMachine = StateMachine.getInstance();
      static List<Braco> bracos = Arrays.asList(
-    new BracoAlto(stateMachine),
-     new BracoBaixo(stateMachine));
+    BracoAlto.getInstance(),
+     BracoBaixo.getInstance());
 }

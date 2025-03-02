@@ -2,10 +2,8 @@ package frc.robot.RCFeatures.UnitTests;
 
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants.ArmUtility.ClawConstants;
-import frc.robot.RCFeatures.Interfaces.IOInterface;
 import frc.robot.commands.Claw.ClawCommand;
 import frc.robot.commands.Claw.ClawTestCommand;
-import frc.robot.subsystems.ArmMechanisms.Garra;
 import frc.robot.subsystems.ArmMechanisms.GarraBase;
 import frc.robot.subsystems.ArmMechanisms.GarraIntake;
 

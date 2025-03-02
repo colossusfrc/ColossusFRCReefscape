@@ -9,8 +9,8 @@ import frc.robot.RCFeatures.ArmFeatures.ArmCommandFactory;
 import frc.robot.RCFeatures.ArmFeatures.StateMachine;
 import frc.robot.RCFeatures.Interfaces.ArmInterface.ArmStates;
 import frc.robot.commands.Arm.Pidbraco;
-import frc.robot.subsystems.ArmMechanisms.Braco;
-import frc.robot.subsystems.ArmMechanisms.Garra;
+import frc.robot.subsystems.ArmMechanisms.Superclasses.Braco;
+import frc.robot.subsystems.ArmMechanisms.Superclasses.Garra;
 
 public class ArmUnitTest{
     private final CommandXboxController controleXbox;

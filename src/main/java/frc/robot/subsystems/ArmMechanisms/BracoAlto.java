@@ -1,14 +1,12 @@
 package frc.robot.subsystems.ArmMechanisms;
-import java.lang.Thread.State;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.ArmUtility;
-import frc.robot.Constants.ArmUtility.ArmConstants;
 import frc.robot.Constants.ArmUtility.HighArmConstants;
 import frc.robot.RCFeatures.ArmFeatures.StateMachine;
+import frc.robot.subsystems.ArmMechanisms.Superclasses.Braco;
 
 public class BracoAlto extends Braco{
 
@@ -20,16 +18,22 @@ public class BracoAlto extends Braco{
 
     private final Supplier<Double> getTreatedMotion;
 
-    private final double offset = -0.709;
-
     private final double initialComplementarAngle = 92.3;
 
     private Consumer<Boolean> setThisPid;
 
     private boolean hasChangedPID = false;
 
-    public BracoAlto(StateMachine stateMachine) {
-        super(9, 0, 1.0, stateMachine);
+    private static BracoAlto instance;
+    public static synchronized BracoAlto getInstance(){
+        if(instance==null){
+        instance = new BracoAlto(StateMachine.getInstance());
+        }
+        return instance;
+    }
+
+    private BracoAlto(StateMachine stateMachine) {
+        super(HighArmConstants.id, HighArmConstants.idEncoder, 1.0, stateMachine);
         
         setThisPid = (mustChangePID)->{
             if(!mustChangePID){
@@ -54,7 +58,7 @@ public class BracoAlto extends Braco{
 
             lastValue = currentValue;
     
-            return super.enCycleAdv.get() + rotations + offset;
+            return super.enCycleAdv.get() + rotations + HighArmConstants.offset;
         };
 
         this.pidController.setPID(HighArmConstants.kP, HighArmConstants.kI, HighArmConstants.kD);
@@ -78,7 +82,7 @@ public class BracoAlto extends Braco{
         angle = getAbsolutePosition() + initialComplementarAngle;
         while(Math.abs(angle)>360)angle -= Math.signum(angle)*360;
         while(Math.abs(angle)>180)angle = -Math.signum(angle)*(360-Math.abs(angle));
-        return angle+offset;
+        return angle+HighArmConstants.offset;
     }
 
     @Override
@@ -102,7 +106,7 @@ public class BracoAlto extends Braco{
         
         treatedPower-= Math.cos(getAbsoluteAngle()) * HighArmConstants.kFF;
 
-        treatedPower = ((Math.abs(super.pidController.getPositionError())>=180)&&(getAbsoluteAngle()>0))?-Math.abs(treatedPower):treatedPower;
+        treatedPower = ((Math.abs(super.pidController.getError())>=180)&&(getAbsoluteAngle()>0))?-Math.abs(treatedPower):treatedPower;
         setArm(treatedPower+feedForward);
     }
 

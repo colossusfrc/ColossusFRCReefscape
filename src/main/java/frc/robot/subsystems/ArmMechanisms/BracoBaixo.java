@@ -1,15 +1,12 @@
 package frc.robot.subsystems.ArmMechanisms;
 
-import java.lang.Thread.State;
 import java.util.function.Supplier;
-
-import com.revrobotics.spark.SparkMax;
-import com.revrobotics.spark.SparkLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.ArmUtility;
 import frc.robot.Constants.ArmUtility.ArmConstants;
 import frc.robot.RCFeatures.ArmFeatures.StateMachine;
+import frc.robot.subsystems.ArmMechanisms.Superclasses.Braco;
 
 /**
  * BracoBaixo
@@ -26,13 +23,20 @@ public class BracoBaixo extends Braco{
 
   private final Supplier<Double> getTreatedMotion;
 
-  private final double offset = 0.779;
-
   private final double initialComplementarAngle = 14.0;
-  public BracoBaixo(StateMachine stateMachine){
-    super(10,
-    1,
-     0.4285706,
+
+  private static BracoBaixo instance;
+    public static synchronized BracoBaixo getInstance(){
+        if(instance==null){
+        instance = new BracoBaixo(StateMachine.getInstance());
+        }
+        return instance;
+    }
+
+    private BracoBaixo(StateMachine stateMachine){
+    super(ArmConstants.id,
+    ArmConstants.idEncoder,
+     ArmConstants.conversionFactor,
      stateMachine);
     super.pidController.setTolerance(2);
     getTreatedMotion = () -> {
@@ -46,7 +50,7 @@ public class BracoBaixo extends Braco{
 
         lastValue = currentValue;
 
-        return currentValue + rotations + offset;
+        return currentValue + rotations + ArmConstants.offset;
     };
   }
   @Override
