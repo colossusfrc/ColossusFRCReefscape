@@ -36,9 +36,9 @@ public class CollectivePIDBraco extends Command {
             Controle.minLimit:
             Controle.maxLimit);
         //controle do BRAÇO ALTO[0]
-        /*new Pidbraco(this.bracos.get(0), ArmPositions.armPositions.get(armState)[0], 0.0).execute();*/
+        /*new Pidbraco(this.bracos.get(0), ArmPositions.armPositions.get(armState)[0]).execute();*/
         //controle do BRAÇO BAIXO[1]
-        new Pidbraco(this.bracos.get(1), ArmPositions.armPositions.get(armState)[1], 0.0).execute();
+        new Pidbraco(this.bracos.get(1), ArmPositions.armPositions.get(armState)[1]).execute();
          //GARRA[2]
         new ClawCommand(this.garra, ArmPositions.armPositions.get(armState)[2]).execute();
     }
