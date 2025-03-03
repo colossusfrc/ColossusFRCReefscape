@@ -22,11 +22,10 @@ public class AutonomousFactory {
         return new SequentialCommandGroup(
         pathplannerTrajetoryWithTimeout(SwerveSubsystem.getAutonomousRoutine(), 2.0),
             alignTagToPosition(AutonConstants.cameraOffsets.get(SwerveSubsystem.getAutonomousRoutine())).andThen(
-                SwerveSubsystem.getInstance().resetOdometryCommand(new Pose2d(AutoInterface.robotPoseDueTag(),
-                AutonConstants.cameraTargetHeadings.get(SwerveSubsystem.getAutonomousRoutine())))),
-                setArmState(ArmStates.l3, LimelightConstants.armTimeout),
-                    actuateClaw(LimelightConstants.armTimeout),
-                        setArmState(ArmStates.guarda, LimelightConstants.armTimeout)
+                SwerveSubsystem.getInstance().resetOdometryCommand(new Pose2d(AutoInterface.robotPoseDueTag(), AutonConstants.cameraTargetHeadings.get(SwerveSubsystem.getAutonomousRoutine())))),
+                    setArmState(ArmStates.l3, LimelightConstants.armTimeout),
+                        actuateClaw(LimelightConstants.armTimeout),
+                            setArmState(ArmStates.guarda, LimelightConstants.armTimeout)
         );
     }
     private static Command pathplannerTrajetoryWithTimeout(String trajectory, double timeout){
