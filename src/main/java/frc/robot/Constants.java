@@ -128,6 +128,7 @@ public final class Constants {
     //posicoes alvo 
     public static final HashMap<String, Rotation2d> cameraTargetHeadings = new HashMap<>();
     static{
+      //coração dos metadados do autõnomo
       for(int i = 0; i<6; i++){
         initialPositionsByLabels.put(labels[i], initialPositions[i]); 
         tagIdsByLabels.put(labels[i], tagIds[i]);

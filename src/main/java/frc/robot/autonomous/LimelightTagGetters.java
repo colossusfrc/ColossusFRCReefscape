@@ -13,15 +13,6 @@ import frc.robot.Constants.AutonConstants;
 import frc.robot.Constants.AutonConstants.LimelightConstants;
 
 public class LimelightTagGetters extends SubsystemBase{
-    static{
-        LimelightHelpers.setCameraPose_RobotSpace(AutonConstants.LimelightConstants.limelightName,
-        AutonConstants.LimelightConstants.limelightV0[0],
-        AutonConstants.LimelightConstants.limelightV0[1],
-        AutonConstants.LimelightConstants.limelightV0[2],
-        AutonConstants.LimelightConstants.limelightV0[3],
-        AutonConstants.LimelightConstants.limelightV0[4],
-        AutonConstants.LimelightConstants.limelightV0[5]);
-    }
     private PIDController pid;
     public enum Axis{x, y, theta};
     private Function<Double, Double> pidGetter;
@@ -29,7 +20,8 @@ public class LimelightTagGetters extends SubsystemBase{
     private Axis axis;
     private HashMap<Axis, PIDController> getPid = new HashMap<>();
     private HashMap<Axis, Double> getIzone = new HashMap<>();
-    {
+    static{
+        LimelightHelpers.setCameraPose_RobotSpace(AutonConstants.LimelightConstants.limelightName, AutonConstants.LimelightConstants.limelightV0[0], AutonConstants.LimelightConstants.limelightV0[1], AutonConstants.LimelightConstants.limelightV0[2], AutonConstants.LimelightConstants.limelightV0[3], AutonConstants.LimelightConstants.limelightV0[4], AutonConstants.LimelightConstants.limelightV0[5]);
         getPid.put(Axis.x, new PIDController(LimelightConstants.kpX, LimelightConstants.kiX, LimelightConstants.kdX));
         getPid.put(Axis.y, new PIDController(LimelightConstants.kpY, LimelightConstants.kiY, LimelightConstants.kdY));
         getPid.put(Axis.theta, new PIDController(LimelightConstants.kpTheta, LimelightConstants.kiTheta, LimelightConstants.kdTheta));
@@ -57,14 +49,12 @@ public class LimelightTagGetters extends SubsystemBase{
     private Double getAxis(Alliance fieldAttributes, Axis axis){
         boolean isVisible = LimelightHelpers.getTV(LimelightConstants.limelightName);
         if(!isVisible)return 0.0;
-        try{
-            switch (axis) {
+        try{ switch (axis) {
                 case theta:return LimelightHelpers.getRawFiducials(LimelightConstants.limelightName)[0].txnc;
                 case x:return getPose(fieldAttributes).getX();
-                case y:return getPose(fieldAttributes).getY();
-            }
+                default:return getPose(fieldAttributes).getY();
+                }
         }catch(ArrayIndexOutOfBoundsException e){}
-        return (axis==Axis.x)?getPose(fieldAttributes).getX():getPose(fieldAttributes).getY();
     }
     private Double getPid(double measurement,double setPoint){ 
         Double output = this.pid.calculate(measurement, setPoint);
