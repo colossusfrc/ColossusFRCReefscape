@@ -18,11 +18,11 @@ public class LimelightTagGetters extends SubsystemBase{
     private Function<Double, Double> pidGetter;
     private Alliance fieldAttributes;
     private Axis axis;
-    private HashMap<Axis, PIDController> getPid = new HashMap<>();
-    private HashMap<Axis, Double> getIzone = new HashMap<>();
-    static{
-        LimelightHelpers.setCameraPose_RobotSpace(AutonConstants.LimelightConstants.limelightName, AutonConstants.LimelightConstants.limelightV0[0], AutonConstants.LimelightConstants.limelightV0[1], AutonConstants.LimelightConstants.limelightV0[2], AutonConstants.LimelightConstants.limelightV0[3], AutonConstants.LimelightConstants.limelightV0[4], AutonConstants.LimelightConstants.limelightV0[5]);
-        getPid.put(Axis.x, new PIDController(LimelightConstants.kpX, LimelightConstants.kiX, LimelightConstants.kdX));
+    private static HashMap<Axis, PIDController> getPid = new HashMap<>();
+        static private HashMap<Axis, Double> getIzone = new HashMap<>();
+        static{
+            LimelightHelpers.setCameraPose_RobotSpace(AutonConstants.LimelightConstants.limelightName, AutonConstants.LimelightConstants.limelightV0[0], AutonConstants.LimelightConstants.limelightV0[1], AutonConstants.LimelightConstants.limelightV0[2], AutonConstants.LimelightConstants.limelightV0[3], AutonConstants.LimelightConstants.limelightV0[4], AutonConstants.LimelightConstants.limelightV0[5]);
+            getPid.put(Axis.x, new PIDController(LimelightConstants.kpX, LimelightConstants.kiX, LimelightConstants.kdX));
         getPid.put(Axis.y, new PIDController(LimelightConstants.kpY, LimelightConstants.kiY, LimelightConstants.kdY));
         getPid.put(Axis.theta, new PIDController(LimelightConstants.kpTheta, LimelightConstants.kiTheta, LimelightConstants.kdTheta));
         getIzone.put(Axis.x, LimelightConstants.iXRange);
@@ -41,12 +41,12 @@ public class LimelightTagGetters extends SubsystemBase{
             return (isVisible)?getPid(getAxis(fieldAttributes, axis), setPoint):0.0;};
         LimelightHelpers.setPriorityTagID(LimelightConstants.limelightName, tagId);
     }
-    private Pose2d getPose(Alliance fieldAttributes){
+    private static Pose2d getPose(Alliance fieldAttributes){
         return (fieldAttributes==Alliance.Red)?
         LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2(LimelightConstants.limelightName).pose
         :LimelightHelpers.getBotPoseEstimate_wpiRed_MegaTag2(LimelightConstants.limelightName).pose;
     }
-    private Double getAxis(Alliance fieldAttributes, Axis axis){
+    private static Double getAxis(Alliance fieldAttributes, Axis axis){
         boolean isVisible = LimelightHelpers.getTV(LimelightConstants.limelightName);
         if(!isVisible)return 0.0;
         try{ switch (axis) {
@@ -55,6 +55,7 @@ public class LimelightTagGetters extends SubsystemBase{
                 default:return getPose(fieldAttributes).getY();
                 }
         }catch(ArrayIndexOutOfBoundsException e){}
+        return getPose(fieldAttributes).getY();
     }
     private Double getPid(double measurement,double setPoint){ 
         Double output = this.pid.calculate(measurement, setPoint);
