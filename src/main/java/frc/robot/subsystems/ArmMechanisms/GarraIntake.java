@@ -11,6 +11,7 @@ public class GarraIntake extends Garra{
         instance = new GarraIntake();
         }
         return instance;
+        
     }
 
     private GarraIntake(){
