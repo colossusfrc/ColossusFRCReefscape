@@ -22,13 +22,11 @@ import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Constants.SwerveConfigs;
 import frc.robot.Constants.AutonConstants.LimelightConstants;
 import frc.robot.autonomous.LimelightHelpers;
-import frc.robot.subsystems.ArmMechanisms.BracoAlto;
 import swervelib.SwerveController;
 import swervelib.SwerveDrive;
 import swervelib.telemetry.SwerveDriveTelemetry;
@@ -264,5 +262,8 @@ public class SwerveSubsystem extends SubsystemBase{
 
     String position = String.valueOf(DriverStation.getLocation().getAsInt());
     return alliance+position;
+  }
+  public static String getAutonomousPathPlanner(){
+    return Constants.AutonConstants.currentSelection.getName()+getAutonomousRoutine();
   }
 }

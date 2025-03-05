@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 10.0,
-        "y": 2.0
+        "x": 6.016,
+        "y": 0.7
       },
       "prevControl": null,
       "nextControl": {
-        "x": 11.0,
-        "y": 2.0
+        "x": 5.489249999999999,
+        "y": 1.8994999999999993
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 12.168,
-        "y": 2.509
+        "x": 1.843,
+        "y": 0.8659999999999991
       },
       "prevControl": {
-        "x": 11.460893218813453,
-        "y": 1.8018932188134529
+        "x": 2.30125,
+        "y": 1.2657499999999993
       },
       "nextControl": null,
       "isLocked": false,
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 59.99999999999999
+    "rotation": -126.0
   },
   "reversed": false,
-  "folder": null,
+  "folder": "CoralAlgaB1",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": -90.0
   },
   "useDefaultConstraints": true
 }

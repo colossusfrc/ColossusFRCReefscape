@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.6,
-        "y": 6.0
+        "x": 12.084,
+        "y": 5.601
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.6,
-        "y": 6.0
+        "x": 12.370654381414473,
+        "y": 6.156334777641692
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 5.43,
-        "y": 5.553
+        "x": 13.018647540983604,
+        "y": 7.411526639344262
       },
       "prevControl": {
-        "x": 6.137106781186548,
-        "y": 6.260106781186548
+        "x": 12.908691092161506,
+        "y": 7.187005862215655
       },
       "nextControl": null,
       "isLocked": false,
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -119.99999999999999
+    "rotation": -90.0
   },
   "reversed": false,
-  "folder": null,
+  "folder": "SimplesR3",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 180.0
+    "rotation": -59.99999999999999
   },
   "useDefaultConstraints": true
 }

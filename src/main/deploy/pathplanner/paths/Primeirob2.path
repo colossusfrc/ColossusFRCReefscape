@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.6,
-        "y": 4.0
+        "x": 7.907407525685149,
+        "y": 4.0183501122251375
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 6.2,
+        "x": 6.27,
         "y": 4.0
       },
       "prevControl": {
-        "x": 7.2,
-        "y": 4.0
+        "x": 6.020125980349741,
+        "y": 3.992064364938935
       },
       "nextControl": null,
       "isLocked": false,
@@ -45,9 +45,9 @@
     "rotation": 180.0
   },
   "reversed": false,
-  "folder": null,
+  "folder": "AlgaB2",
   "idealStartingState": {
-    "velocity": 0.0,
+    "velocity": 0,
     "rotation": 180.0
   },
   "useDefaultConstraints": true

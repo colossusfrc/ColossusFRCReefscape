@@ -21,7 +21,7 @@ public class CollectivePIDBraco extends Command {
         this.armState  = armState;
         this.bracos = bracos;
         this.garra = garra;
-        addRequirements(bracos.get(0), bracos.get(1), garra);
+        addRequirements(bracos.get(0), garra);
     }
 
     @Override
@@ -35,15 +35,12 @@ public class CollectivePIDBraco extends Command {
         Constants.Controle.limit = ()->((armState!=ArmStates.guarda)?
             Controle.minLimit:
             Controle.maxLimit);
-        //controle do BRAÇO ALTO[0]
-        /*new Pidbraco(
+        //controle do BRAÇO Baixo[0]
+        new Pidbraco(
             this.bracos.get(0),
              ArmPositions.armPositions.get(armState)[0]
-             , 0.0).execute();*/
-        //controle do BRAÇO BAIXO[1]
-        new Pidbraco(this.bracos.get(1),
-         ArmPositions.armPositions.get(armState)[1]
-         , (armState == ArmStates.guarda)?ArmPositions.armFeedForward:0.0).execute();
+             , 0.0).execute();
+        //controle do BRAÇO Alto[1]
          //GARRA[2]
         new ClawCommand(this.garra, ArmPositions.armPositions.get(armState)[2]).execute();
     }

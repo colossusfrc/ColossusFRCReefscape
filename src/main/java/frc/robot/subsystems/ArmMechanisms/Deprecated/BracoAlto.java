@@ -1,13 +1,12 @@
-package frc.robot.subsystems.ArmMechanisms;
+package frc.robot.subsystems.ArmMechanisms.Deprecated;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.ArmUtility;
 import frc.robot.Constants.ArmUtility.HighArmConstants;
 import frc.robot.RCFeatures.ArmFeatures.StateMachine;
 import frc.robot.subsystems.ArmMechanisms.Superclasses.Braco;
-
+@Deprecated
 public class BracoAlto extends Braco{
 
     private double lastValue = 0.0;
@@ -58,7 +57,7 @@ public class BracoAlto extends Braco{
 
             lastValue = currentValue;
     
-            return super.enCycleAdv.get() + rotations + HighArmConstants.offset;
+            return super.enCycleAdv.get() + rotations;
         };
 
         this.pidController.setPID(HighArmConstants.kP, HighArmConstants.kI, HighArmConstants.kD);
@@ -88,10 +87,6 @@ public class BracoAlto extends Braco{
     @Override
     public void periodic() {
         super.periodic();
-        SmartDashboard.putNumber("Value alto", super.enCycleAdv.get());
-        SmartDashboard.putNumber("Absolute angle braco alto", getAbsoluteAngle());
-        SmartDashboard.putNumber("pid", pidController.getP());
-        SmartDashboard.putNumber("Power braco alto", super.motor.get());
 
         currentValue = getTreatedMotion.get();
 
@@ -107,6 +102,7 @@ public class BracoAlto extends Braco{
         treatedPower-= Math.cos(getAbsoluteAngle()) * HighArmConstants.kFF;
 
         treatedPower = ((Math.abs(super.pidController.getError())>=180)&&(getAbsoluteAngle()>0))?-Math.abs(treatedPower):treatedPower;
+        
         setArm(treatedPower+feedForward);
     }
 

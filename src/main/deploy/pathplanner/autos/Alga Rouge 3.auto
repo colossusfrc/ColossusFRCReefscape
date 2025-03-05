@@ -1,0 +1,106 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "PrimeiroR3"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "SetArmStateReef"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AlignTagReef"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Drop"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AlgeeArm"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "KeepAlgee"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "SegundoR3"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "ArmProcessor"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "KeepAlgee"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Drop"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "TerceiroR3"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "BackArm"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": "Alga",
+  "choreoAuto": false
+}

@@ -33,15 +33,15 @@ public class RobotContainer implements IOInterface,
     // Definimos o comando padrão como a tração
     swerve.setDefaultCommand(
       swerve.driveCommand(
-        () -> MathUtil.applyDeadband(-controleXbox.getLeftY()*Controle.limit.get(), Constants.Controle.DEADBAND),
-        () -> MathUtil.applyDeadband(-controleXbox.getLeftX()*Controle.limit.get(), Constants.Controle.DEADBAND),
-        () -> -controleXbox.getRightX()*Controle.limit.get()));
+        () -> MathUtil.applyDeadband(-controleXbox.getRawAxis(0)*Controle.limit.get(), Constants.Controle.DEADBAND),
+        () -> MathUtil.applyDeadband(-controleXbox.getRawAxis(1)*Controle.limit.get(), Constants.Controle.DEADBAND),
+        () -> -controleXbox.getRawAxis(4)*Controle.limit.get()));
     //testes unitários do swerve
     new SwerveUnitTest(swerve, controleXbox);
     //testes unitparios do braço
     new ArmUnitTest(controleXbox, bracos, stateMachine, garraBase);
     //testes unitarios da garra
-    new ClawUnitTest(garraIntake, garraBase, controleXbox);
+    //new ClawUnitTest(garraIntake, garraBase, controleXbox);
   }
 
 

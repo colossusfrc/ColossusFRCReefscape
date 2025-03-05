@@ -1,5 +1,4 @@
 package frc.robot.subsystems.ArmMechanisms.Deprecated;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.ArmUtility;
 import frc.robot.Constants.ArmUtility.ArmConstants;
 import frc.robot.RCFeatures.ArmFeatures.StateMachine;
@@ -19,9 +18,6 @@ public class BracoAltoEncoder extends Braco{
     @Override
     public void periodic() {
         super.treatBoundariesIncremental();
-        SmartDashboard.putNumber("Angle position "+getName(), getAbsoluteAngle());
-        SmartDashboard.putNumber("Erro", getError());
-        SmartDashboard.putNumber("power ", super.motor.get());
     }
 
     @Override

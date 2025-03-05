@@ -1,0 +1,63 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "CaminhoInicialB3"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "SetArmStateReef"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AlignTagReef"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Drop"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "SegundoCaminhoB3"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "BackArm"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": "Simples",
+  "choreoAuto": false
+}

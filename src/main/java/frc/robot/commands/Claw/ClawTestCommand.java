@@ -13,13 +13,13 @@ public class ClawTestCommand extends Command{
         this.garra = garraBase;
         this.power = power;
         this.garraIntake = false;
-        addRequirements(garraBase);
+        addRequirements(this.garra);
     }
     public ClawTestCommand(GarraIntake garraIntake, double power){
         this.garra = garraIntake;
         this.power = power;
         this.garraIntake = true;
-        addRequirements(garraIntake);
+        addRequirements(this.garra);
     }
     @Override
     public void initialize() {

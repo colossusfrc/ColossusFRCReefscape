@@ -4,11 +4,11 @@ import java.util.List;
 
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants;
-import frc.robot.Constants.ArmUtility.ArmPositions;
 import frc.robot.RCFeatures.ArmFeatures.ArmCommandFactory;
 import frc.robot.RCFeatures.ArmFeatures.StateMachine;
 import frc.robot.RCFeatures.Interfaces.ArmInterface.ArmStates;
 import frc.robot.commands.Arm.Pidbraco;
+import frc.robot.commands.Arm.Deprecated.SimpleArmCommand;
 import frc.robot.subsystems.ArmMechanisms.Superclasses.Braco;
 import frc.robot.subsystems.ArmMechanisms.Superclasses.Garra;
 
@@ -24,14 +24,16 @@ public class ArmUnitTest{
         this.stateMachine = stateMachine;
         this.garra = garra;
 
-        armRoutineManager();
+        armTestCrisis();
+    }
+    private void armTestCrisis(){
+      bracos.get(0).setDefaultCommand(
+       new SimpleArmCommand(bracos.get(0),()->controleXbox.getLeftTriggerAxis()*0.5)
+      );
     }
     private void armRoutineManager(){
       bracos.get(0).setDefaultCommand(
         new Pidbraco(bracos.get(0), Constants.ArmUtility.ArmPositions.armPositions.get(ArmStates.guarda)[0], 0.0)
-      );
-      bracos.get(1).setDefaultCommand(
-        new Pidbraco(bracos.get(1), Constants.ArmUtility.ArmPositions.armPositions.get(ArmStates.guarda)[1], ArmPositions.armFeedForward)
       );
         treeUnitTest();
     }

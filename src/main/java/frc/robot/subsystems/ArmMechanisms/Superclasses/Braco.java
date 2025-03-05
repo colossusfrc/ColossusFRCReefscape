@@ -106,7 +106,6 @@ public abstract class Braco extends SubsystemBase implements Clever{
   @Override
   public void periodic() {
     treatBoundariesIncremental();
-    SmartDashboard.putNumber("Error "+getName(), pidController.getPositionError());
     SmartDashboard.putNumber("valor", conversionFactor);
     SmartDashboard.putString("past state", stateMachine.getAnterior().toString());
     SmartDashboard.putString("current state", stateMachine.getAtual().toString());

@@ -5,7 +5,6 @@
 package frc.robot.commands.Arm.Deprecated;
 
 import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.ArmMechanisms.Superclasses.Braco;
 
@@ -43,8 +42,6 @@ public class ArmCommandToPosition extends Command {
   public void execute() {
     double appliedPower = PIDArm.calculate(arm.getIncrementalAngle(), targAngle);
     appliedPower=(Math.abs(appliedPower)>power)?Math.signum(appliedPower)*power:appliedPower;
-    SmartDashboard.putNumber("Erro braco: ", PIDArm.getPositionError());
-    SmartDashboard.putNumber("AppliedOutput", appliedPower);
     //appliedPower*=((Math.signum(appliedPower)<0&&arm.getAbsoluteAngle()<-30.0)||(Math.signum(appliedPower)>0&&arm.getAbsoluteAngle()>145.0))?-1.0:1.0;
     arm.setArm(appliedPower);
   }

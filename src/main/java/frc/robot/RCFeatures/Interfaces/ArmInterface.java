@@ -4,7 +4,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import frc.robot.RCFeatures.ArmFeatures.StateMachine;
-import frc.robot.subsystems.ArmMechanisms.BracoAlto;
 import frc.robot.subsystems.ArmMechanisms.BracoBaixo;
 import frc.robot.subsystems.ArmMechanisms.Superclasses.Braco;
 
@@ -21,6 +20,5 @@ public interface ArmInterface {
      };
      static StateMachine stateMachine = StateMachine.getInstance();
      static List<Braco> bracos = Arrays.asList(
-    BracoAlto.getInstance(),
      BracoBaixo.getInstance());
 }

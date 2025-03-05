@@ -12,11 +12,10 @@ import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.subsystems.ArmMechanisms.Interfaces.Clever;
 
-public class Garra extends SubsystemBase{
-    protected SparkMax motor; //11
-
-    //protected final SparkMax motorAlto;//13
+public class Garra extends SubsystemBase implements Clever{
+    protected SparkMax motor;
 
     protected final SparkMaxConfig config = new SparkMaxConfig();
 
@@ -73,11 +72,37 @@ public class Garra extends SubsystemBase{
     @Override
     public void periodic() {
         SmartDashboard.putNumber("power", motor.get());
-        SmartDashboard.putNumber("Posicao Garra", getPosition());
     }
     
     public void resetEncoder(){
         relativeEncoder.setPosition(0.0);
     }
+
+    @Override
+    public double getAbsolutePosition() { return 0.0; }
+
+    @Override
+    public double getAbsoluteAngle() { return 0.0; }
+
+    @Override
+    public double getError() { return 0.0; }
+
+    @Override
+    public double getIncrementalPosition() { return getPosition(); }
+
+    @Override
+    public double getIncrementalAngle() { return getPosition(); }
+
+    @Override
+    public boolean getPID() { return false; }
+
+    @Override
+    public void setAbsolutePosition(double target, double feedForward) { }
+
+    @Override
+    public void stopArm() { setPower(0.0); }
+
+    @Override
+    public void setArm(double power) { setPower(power);}
 }
 
