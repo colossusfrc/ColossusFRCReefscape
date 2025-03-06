@@ -17,7 +17,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "SetArmStateReef"
+                  "name": null
                 }
               }
             ]
@@ -26,25 +26,25 @@
         {
           "type": "named",
           "data": {
-            "name": "AlignTagReef"
+            "name": null
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "Drop"
+            "name": null
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "AlgeeArm"
+            "name": null
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "KeepAlgee"
+            "name": null
           }
         },
         {
@@ -60,13 +60,13 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "BackArm"
+                  "name": null
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "KeepAlg"
+                  "name": null
                 }
               }
             ]

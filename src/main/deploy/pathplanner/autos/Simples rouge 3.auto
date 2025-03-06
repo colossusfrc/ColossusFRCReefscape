@@ -9,15 +9,15 @@
           "data": {
             "commands": [
               {
-                "type": "path",
+                "type": "named",
                 "data": {
-                  "pathName": "CaminhoInicialR3"
+                  "name": "keepCoral"
                 }
               },
               {
-                "type": "named",
+                "type": "path",
                 "data": {
-                  "name": "SetArmStateReef"
+                  "pathName": "ForwardR3"
                 }
               }
             ]
@@ -26,32 +26,7 @@
         {
           "type": "named",
           "data": {
-            "name": "AlignTagReef"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Drop"
-          }
-        },
-        {
-          "type": "parallel",
-          "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "SegundoCaminhoR3"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "BackArm"
-                }
-              }
-            ]
+            "name": "keepCoral"
           }
         }
       ]

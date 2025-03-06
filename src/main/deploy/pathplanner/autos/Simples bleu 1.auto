@@ -5,19 +5,25 @@
     "data": {
       "commands": [
         {
-          "type": "parallel",
+          "type": "named",
+          "data": {
+            "name": "keepCoral"
+          }
+        },
+        {
+          "type": "deadline",
           "data": {
             "commands": [
               {
-                "type": "path",
+                "type": "named",
                 "data": {
-                  "pathName": "CaminhoInicialB1"
+                  "name": "keepCoral"
                 }
               },
               {
-                "type": "named",
+                "type": "path",
                 "data": {
-                  "name": "SetArmStateReef"
+                  "pathName": "ForwardB1"
                 }
               }
             ]
@@ -26,32 +32,7 @@
         {
           "type": "named",
           "data": {
-            "name": "AlignTagReef"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Drop"
-          }
-        },
-        {
-          "type": "parallel",
-          "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "BackArm"
-                }
-              },
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "SegundoCaminhoB1"
-                }
-              }
-            ]
+            "name": "keepCoral"
           }
         }
       ]

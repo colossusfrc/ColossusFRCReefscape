@@ -5,20 +5,45 @@
     "data": {
       "commands": [
         {
+          "type": "named",
+          "data": {
+            "name": "keepCoral"
+          }
+        },
+        {
           "type": "parallel",
           "data": {
             "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "Level1"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "keepCoral"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "keepCoral"
+                }
+              },
               {
                 "type": "path",
                 "data": {
                   "pathName": "CaminhoInicialR2"
                 }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "SetArmStateReef"
-                }
               }
             ]
           }
@@ -26,32 +51,13 @@
         {
           "type": "named",
           "data": {
-            "name": "AlignTagReef"
+            "name": "SendCoral"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "Drop"
-          }
-        },
-        {
-          "type": "parallel",
-          "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "SegundoCaminhoR2"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "BackArm"
-                }
-              }
-            ]
+            "name": "Back"
           }
         }
       ]

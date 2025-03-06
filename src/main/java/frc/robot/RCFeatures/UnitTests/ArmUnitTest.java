@@ -7,12 +7,10 @@ import frc.robot.Constants;
 import frc.robot.RCFeatures.ArmFeatures.ArmCommandFactory;
 import frc.robot.RCFeatures.ArmFeatures.StateMachine;
 import frc.robot.RCFeatures.Interfaces.ArmInterface.ArmStates;
-import frc.robot.autonomous.AutonomousFactory;
 import frc.robot.commands.Arm.Pidbraco;
 import frc.robot.commands.Arm.Deprecated.SimpleArmCommand;
 import frc.robot.subsystems.ArmMechanisms.GarraBase;
 import frc.robot.subsystems.ArmMechanisms.Superclasses.Braco;
-import frc.robot.subsystems.ArmMechanisms.Superclasses.Garra;
 
 public class ArmUnitTest{
     private final CommandXboxController controleXbox;

@@ -4,24 +4,24 @@
     {
       "anchor": {
         "x": 7.6,
-        "y": 6.0
+        "y": 2.0
       },
       "prevControl": null,
       "nextControl": {
-        "x": 8.02720261519046,
-        "y": 6.173741445280852
+        "x": 7.297595528478268,
+        "y": 1.9894183932281209
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 5.43,
-        "y": 5.505
+        "x": 6.319999999999999,
+        "y": 2.0
       },
       "prevControl": {
-        "x": 5.187136929334163,
-        "y": 5.445213703488149
+        "x": 6.586641488744822,
+        "y": 2.009207020129924
       },
       "nextControl": null,
       "isLocked": false,
@@ -29,21 +29,7 @@
     }
   ],
   "rotationTargets": [],
-  "constraintZones": [
-    {
-      "name": "Constraints Zone",
-      "minWaypointRelativePos": 0.6022957461174883,
-      "maxWaypointRelativePos": 1.0,
-      "constraints": {
-        "maxVelocity": 0.8,
-        "maxAcceleration": 3.0,
-        "maxAngularVelocity": 540.0,
-        "maxAngularAcceleration": 720.0,
-        "nominalVoltage": 12.0,
-        "unlimited": false
-      }
-    }
-  ],
+  "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
@@ -56,10 +42,10 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -119.99999999999999
+    "rotation": 180.0
   },
   "reversed": false,
-  "folder": "SimplesB3",
+  "folder": "SimplesB1",
   "idealStartingState": {
     "velocity": 0,
     "rotation": 180.0

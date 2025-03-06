@@ -9,7 +9,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.ArmUtility;
 import frc.robot.Constants.ArmUtility.ArmConstants;
 import frc.robot.RCFeatures.ArmFeatures.StateMachine;
-import frc.robot.autonomous.LimelightHelpers;
 import frc.robot.subsystems.ArmMechanisms.Superclasses.Braco;
 
 /**

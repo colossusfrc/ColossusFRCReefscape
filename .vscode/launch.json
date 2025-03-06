@@ -6,6 +6,13 @@
   "configurations": [
     {
       "type": "java",
+      "name": "Main",
+      "request": "launch",
+      "mainClass": "frc.robot.Main",
+      "projectName": "Swerve-stemOS_Java-2025-main"
+    },
+    {
+      "type": "java",
       "name": "ArmCommandSelector",
       "request": "launch",
       "mainClass": "frc.robot.RCFeatures.ArmFeatures.ArmCommandSelector",

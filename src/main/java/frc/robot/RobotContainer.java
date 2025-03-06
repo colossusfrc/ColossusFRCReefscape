@@ -6,9 +6,8 @@ package frc.robot;
 
 import frc.robot.Constants.Controle;
 
-import com.pathplanner.lib.auto.NamedCommands;
+import com.pathplanner.lib.commands.PathPlannerAuto;
 
-import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.RCFeatures.Interfaces.ArmInterface;
@@ -29,8 +28,8 @@ public class RobotContainer implements IOInterface,
       AutoInterface
    {
 
-  Camera camera = new Camera("camera 1");
-  Camera camera2 = new Camera("camera 2");
+  /*Camera camera = new Camera("camera 1");
+  Camera camera2 = new Camera("camera 2");*/
 
   public RobotContainer() {
     super();
@@ -62,6 +61,7 @@ public class RobotContainer implements IOInterface,
 
   public Command getAutonomousCommand()
   {
-    return AutonomousFactory.getAutonomousCommand();
+    //return new PathPlannerAuto("frente");
+   return AutonomousFactory.getAutonomousCommand();
   }
 }

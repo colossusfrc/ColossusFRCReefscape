@@ -78,7 +78,8 @@ public class SwerveSubsystem extends SubsystemBase{
           0,
            0,
             0);
-            SmartDashboard.putString("robotPose", getPose().toString());
+            SmartDashboard.putNumber("bot x", getPose().getX());
+            SmartDashboard.putNumber("bot y", getPose().getY());
     }
 
       public void setupPathPlanner() {

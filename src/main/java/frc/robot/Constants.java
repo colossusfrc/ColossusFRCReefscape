@@ -12,6 +12,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.geometry.Translation3d;
 import frc.robot.RCFeatures.Interfaces.ArmInterface.ArmStates;
+import frc.robot.autonomous.LimelightHelpers;
 import swervelib.math.Matter;
 import swervelib.math.SwerveMath;
 
@@ -71,10 +72,11 @@ public final class Constants {
       public static final double kMaxOutput = 0.0;
       public static final double kMinOutput = -kMaxOutput;
       public static final double armTimeout = 2.0;
+
       public static final double[] limelightV0 = new double[]{
-        0.0,//frente
-         0.0,//direita
-          0.0,//cima
+        -0.212397,//frente
+         -0.2635,//direita
+          0.36195,//cima
            0.0,//0.0
             0.0,//0.0
              0.0};//0.0

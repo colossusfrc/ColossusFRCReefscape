@@ -1,7 +1,6 @@
 package frc.robot.autonomous;
 
 import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -24,11 +23,9 @@ public class LimelightTagGetters extends SubsystemBase{
         LimelightHelpers.SetFiducialIDFiltersOverride(LimelightConstants.limelightName, new int[]{AutonConstants.tagIdsByLabels.get(SwerveSubsystem.getAutonomousRoutine())});
         if(!LimelightHelpers.getTV(LimelightConstants.limelightName))return 1.0;
         if(axis == Axis.x){
-            return (fieldAttributes == Alliance.Blue)?LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2(LimelightConstants.limelightName).pose.getX():
-                LimelightHelpers.getBotPoseEstimate_wpiRed_MegaTag2(LimelightConstants.limelightName).pose.getX();
+            return LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2(LimelightConstants.limelightName).pose.getX()+0.212397;
         }else if(axis == Axis.y){
-            return (fieldAttributes == Alliance.Blue)?LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2(LimelightConstants.limelightName).pose.getY():
-            LimelightHelpers.getBotPoseEstimate_wpiRed_MegaTag2(LimelightConstants.limelightName).pose.getY();
+            return LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2(LimelightConstants.limelightName).pose.getY()-0.2635;
         }else{ 
             return LimelightHelpers.getTX(LimelightConstants.limelightName);
         }
@@ -43,5 +40,6 @@ public class LimelightTagGetters extends SubsystemBase{
     @Override
     public void periodic() {
         SmartDashboard.putNumber(axis.toString()+" pose", getPose());
+        SmartDashboard.putNumber("tag id", LimelightHelpers.getFiducialID(LimelightConstants.limelightName));
     }
 }

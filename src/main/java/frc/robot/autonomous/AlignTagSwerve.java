@@ -1,9 +1,6 @@
 package frc.robot.autonomous;
 
 import java.util.function.DoubleSupplier;
-import java.util.function.Supplier;
-
-import com.ctre.phoenix6.swerve.SwerveRequest;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj2.command.Command;

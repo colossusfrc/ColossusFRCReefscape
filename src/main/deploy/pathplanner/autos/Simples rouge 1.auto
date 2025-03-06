@@ -11,13 +11,13 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "CaminhoInicialR1"
+                  "pathName": "ForwardR1"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "ArmReef"
+                  "name": "keepCoral"
                 }
               }
             ]
@@ -26,26 +26,7 @@
         {
           "type": "named",
           "data": {
-            "name": "Out"
-          }
-        },
-        {
-          "type": "parallel",
-          "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "SegundoCaminhoR1"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Back"
-                }
-              }
-            ]
+            "name": "keepCoral"
           }
         }
       ]

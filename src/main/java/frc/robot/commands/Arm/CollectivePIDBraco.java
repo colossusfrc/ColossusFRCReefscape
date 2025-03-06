@@ -3,14 +3,10 @@ package frc.robot.commands.Arm;
 import frc.robot.Constants;
 import frc.robot.Constants.Controle;
 import frc.robot.Constants.ArmUtility.ArmPositions;
-import frc.robot.Constants.ArmUtility.ClawConstants;
 import frc.robot.RCFeatures.Interfaces.ArmInterface.ArmStates;
 import frc.robot.commands.Claw.ClawCommand;
-import frc.robot.commands.Claw.ClawTestCommand;
 import frc.robot.subsystems.ArmMechanisms.GarraBase;
-import frc.robot.subsystems.ArmMechanisms.GarraIntake;
 import frc.robot.subsystems.ArmMechanisms.Superclasses.Braco;
-import frc.robot.subsystems.ArmMechanisms.Superclasses.Garra;
 
 import java.util.List;
 
@@ -20,7 +16,6 @@ public class CollectivePIDBraco extends Command {
     private final ArmStates armState;
     private final List<Braco> bracos;
     private final GarraBase garra;
-
     public CollectivePIDBraco(ArmStates armState, List<Braco> bracos, GarraBase garra){
         this.armState  = armState;
         this.bracos = bracos;
