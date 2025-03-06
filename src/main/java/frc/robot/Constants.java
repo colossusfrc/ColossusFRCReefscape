@@ -56,7 +56,7 @@ public final class Constants {
     //só mexer aqui
     public static final class LimelightConstants{
       public static final String limelightName = "limelight";
-      public static final double kpTheta = 0.0;
+      public static final double kpTheta = 0.01;
       public static final double kiTheta = 0.0;
       public static final double kdTheta = 0.0;
       public static final double iThetaRange = 10.0;
@@ -140,8 +140,8 @@ public final class Constants {
 
     // Contem a porta em que o controle está
     public static class Controle {
-      public static Supplier<Double> limit = ()->0.8;
       public static final double maxLimit = 0.8;
+      public static Supplier<Double> limit = ()->maxLimit;
       public static final double minLimit = 0.6;
       // Porta do controle
       public static final int xboxControle = 0;
@@ -173,14 +173,14 @@ public final class Constants {
         public static final int id = 10;
         public static final int idMotorAuxiliarv = 11;
         public static final int idEncoder = 8;
-        public static final double conversionFactor = 0.21875;
-        public static final double offset = 0.779;
-        public static final double kP = 0.04;
-        public static final double kI = 0.01;
-        public static final double kD = 0.00036;
+        public static final double conversionFactor = 0.25;
+        public static final double offset = -0.229;
+        public static final double kP = 0.025; 
+        public static final double kI = 0.0;
+        public static final double kD = 0.0;
         public static final double kIz = 0.0;
         public static final double kFF = 0.0;
-        public static final double kMaxOutput = 0.1;
+        public static final double kMaxOutput = 0.5;
         public static final double kMinOutput = -kMaxOutput;
       }
       //constantes do braço alto
@@ -200,14 +200,16 @@ public final class Constants {
         public static final double kMinOutput = -kMaxOutput;
       }
       public static final class ClawConstants{
-        public static final double clawReceive = 0.2;
-        public static final double clawDrop = -0.1;
+        public static final double clawReceive = 0.3;
+        public static final double clawDrop = -0.3;
         public static final int baseId = 9;
         public static final int intakeId = 12;
         public static final int absoluteEncoderId = 9;
-        public static final double kp = 0.0, ki = 0.0, kd = 0.0;
+        public static final double kp = 0.006, ki = 0.0, kd = 0.0;
         public static final double kMaxPower = 0.1;
-        public static final double encoderOffset = 0.0;
+        public static final double encoderOffset = -0.654;
+        public static double clawPower = 0.05;
+        public static final Supplier<Double> feedForward = ()->clawPower;
       }
       public static final class ArmPositions{
         public static double armFeedForward = 0.0;
@@ -215,14 +217,14 @@ public final class Constants {
           //ArmState->{posicaoBracoBaixo, posicaoBracoALto, posicaoGarra}
           public static HashMap<ArmStates, Double[]> armPositions = new HashMap(8);
           static{
-              armPositions.put(ArmStates.guarda, new Double[]{75.0, 29.0, 0.0});
-              armPositions.put(ArmStates.pegaAlgeeL3, new Double[]{-25.0, 67.0, -9.5});
-              armPositions.put(ArmStates.l1, new Double[]{50.0, 30.0, -8.7});
-              armPositions.put(ArmStates.l2, new Double[]{25.0, 35.0, -8.6});
-              armPositions.put(ArmStates.pega, new Double[]{15.7, 29.0, -4.7});
-              armPositions.put(ArmStates.pegaAlgeeChao, new Double[]{72.0, 31.4, -8.5});
-              armPositions.put(ArmStates.l3, new Double[]{-10.0, 46.5, -9.35});
-              armPositions.put(ArmStates.pegaAlgeeL2, new Double[]{30.6, 19.906, -13.286});
+              armPositions.put(ArmStates.guarda, new Double[]{50.0, 29.0, 0.0});
+              armPositions.put(ArmStates.pegaAlgeeL3, new Double[]{215.0, 67.0, -90.0});
+              armPositions.put(ArmStates.l1, new Double[]{85.0, 30.0, -90.0});
+              armPositions.put(ArmStates.l2, new Double[]{110.0, 35.0, 0.0});
+              armPositions.put(ArmStates.pega, new Double[]{112.35, 29.0, -90.0});
+              armPositions.put(ArmStates.cage, new Double[]{180.0, 31.4, 0.0});
+              armPositions.put(ArmStates.l3, new Double[]{215.0, 46.5, 0.0});
+              armPositions.put(ArmStates.pegaAlgeeL2, new Double[]{230.0, 30.0, -90.0});
           }
         }
     }

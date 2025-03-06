@@ -1,5 +1,6 @@
 package frc.robot.RCFeatures.ArmFeatures;
 
+import frc.robot.Constants.ArmUtility.ClawConstants;
 import frc.robot.RCFeatures.Interfaces.ArmInterface.ArmStates;
 
 public class StateMachine {
@@ -37,7 +38,14 @@ public class StateMachine {
     //condições de passagem dos estados
     private ArmStates stateCondiitons(ArmStates hipotheticalState) {
         this.pidSpecialities = (atual==ArmStates.pega&&hipotheticalState==ArmStates.guarda);
-        if((atual==ArmStates.pega||atual == ArmStates.pegaAlgeeL2)&& hipotheticalState!=ArmStates.guarda)return ArmStates.guarda;
+        //if((((atual==ArmStates.pega
+        //&&hipotheticalState!=ArmStates.l3)
+        //||(atual==ArmStates.pega&&hipotheticalState!=ArmStates.l3))
+        //||atual == ArmStates.pegaAlgeeL2)
+        //&& hipotheticalState!=ArmStates.guarda)
+        //return ArmStates.guarda;
+        ClawConstants.clawPower = (hipotheticalState == ArmStates.guarda)?-0.3:0.05;
+        ClawConstants.clawPower = (hipotheticalState == ArmStates.cage)?0.0:0.05;
         return hipotheticalState;
     }
 

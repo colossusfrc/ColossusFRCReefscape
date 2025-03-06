@@ -12,8 +12,9 @@ import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.subsystems.ArmMechanisms.Interfaces.Clever;
 
-public class Garra extends SubsystemBase{
+public class Garra extends SubsystemBase implements Clever{
     protected SparkMax motor;
 
     protected final SparkMaxConfig config = new SparkMaxConfig();
@@ -76,6 +77,60 @@ public class Garra extends SubsystemBase{
     
     public void resetEncoder(){
         relativeEncoder.setPosition(0.0);
+    }
+
+    @Override
+    public double getAbsolutePosition() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getAbsolutePosition'");
+    }
+
+    @Override
+    public double getAbsoluteAngle() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getAbsoluteAngle'");
+    }
+
+    @Override
+    public double getError() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getError'");
+    }
+
+    @Override
+    public double getIncrementalPosition() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getIncrementalPosition'");
+    }
+
+    @Override
+    public double getIncrementalAngle() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getIncrementalAngle'");
+    }
+
+    @Override
+    public boolean getPID() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getPID'");
+    }
+
+    @Override
+    public void setAbsolutePosition(double target, double feedForward) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'setAbsolutePosition'");
+    }
+
+    @Override
+    public void stopArm() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'stopArm'");
+    }
+
+    @Override
+    public void setArm(double power) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'setArm'");
     }
 }
 

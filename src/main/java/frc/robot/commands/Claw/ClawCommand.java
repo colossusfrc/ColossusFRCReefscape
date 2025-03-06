@@ -1,16 +1,14 @@
 package frc.robot.commands.Claw;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.ArmMechanisms.Superclasses.Garra;
+import frc.robot.subsystems.ArmMechanisms.GarraBase;
 
 public class ClawCommand extends Command{
-    private final Garra garra;
+    private final GarraBase garra;
     private final double target;
-    public ClawCommand(Garra garra, double target){
+    public ClawCommand(GarraBase garra, double target){
         this.garra = garra;
-
         this.target = target;
-
         addRequirements(this.garra);
     }
 
@@ -21,7 +19,7 @@ public class ClawCommand extends Command{
 
     @Override
     public void execute() {
-        garra.setReference(target);
+        garra.setAbsolutePosition(target, 0.0);
     }
 
     @Override

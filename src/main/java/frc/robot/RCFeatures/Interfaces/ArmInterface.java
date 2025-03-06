@@ -14,7 +14,7 @@ public interface ArmInterface {
           l3,
           pega,
           guarda,
-          pegaAlgeeChao,
+          cage,
           pegaAlgeeL2,
           pegaAlgeeL3
      };

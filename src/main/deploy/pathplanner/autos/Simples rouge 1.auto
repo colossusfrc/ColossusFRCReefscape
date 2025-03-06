@@ -17,7 +17,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "SetArmStateReef"
+                  "name": "ArmReef"
                 }
               }
             ]
@@ -26,13 +26,7 @@
         {
           "type": "named",
           "data": {
-            "name": "AlignTagReef"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Drop"
+            "name": "Out"
           }
         },
         {
@@ -48,7 +42,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "BackArm"
+                  "name": "Back"
                 }
               }
             ]

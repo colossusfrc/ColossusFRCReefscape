@@ -11,7 +11,8 @@ public class AutoAlignTag extends Command{
     private final LimelightTagGetters limelightTagGettersX;
     private final LimelightTagGetters limelightTagGettersY;
     private final LimelightTagGetters limelightTagGettersTheta;
-    public AutoAlignTag(SwerveSubsystem swerveSubsystem, Pose2d pose2d,
+    public AutoAlignTag(SwerveSubsystem swerveSubsystem,
+    Pose2d pose2d,
      LimelightTagGetters limelightTagGettersX,
       LimelightTagGetters limelightTagGettersY,
        LimelightTagGetters limelightTagGettersTheta){
@@ -29,9 +30,9 @@ public class AutoAlignTag extends Command{
     @Override
     public void execute() {
         new DriveRobotOrientated(swerveSubsystem, 
-        limelightTagGettersY.getOutput(pose2d.getY()), 
-        limelightTagGettersX.getOutput(pose2d.getX()), 
-        limelightTagGettersTheta.getOutput(pose2d.getRotation().getDegrees())).execute();
+        ()->limelightTagGettersY.getOutput(pose2d.getY()), 
+        ()->limelightTagGettersX.getOutput(pose2d.getX()), 
+        ()->limelightTagGettersTheta.getOutput(pose2d.getRotation().getDegrees())).execute();
     }
     @Override
     public void end(boolean interrupted) {

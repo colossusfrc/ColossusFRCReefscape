@@ -1,5 +1,7 @@
 package frc.robot.commands.Arm;
 
+import java.util.function.Supplier;
+
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.ArmMechanisms.Superclasses.Braco;
 
@@ -8,6 +10,17 @@ public class Pidbraco extends Command{
     private final double target;
     private final boolean analizePid;
     private final double feedForward;
+    private final Supplier<Double> getTarget;
+    public Pidbraco(Braco braco, Supplier<Double> getTarget){
+        this.braco = braco;
+        this.target = 0.0;
+        //sobrecarga de método para tirar a potência do braço, se necesário
+        this.analizePid = false;
+        this.feedForward = 0.0;
+        this.getTarget = getTarget;
+        
+        addRequirements(this.braco);
+    }
     public Pidbraco(Braco braco, double target){
         this.braco = braco;
         this.target = target;
@@ -15,6 +28,8 @@ public class Pidbraco extends Command{
         this.analizePid = false;
         this.feedForward = 0.0;
         
+
+        this.getTarget = null;
         addRequirements(this.braco);
     }
     public Pidbraco(Braco braco, double target, double feedForward){
@@ -23,7 +38,8 @@ public class Pidbraco extends Command{
         //sobrecarga de método para tirar a potência do braço, se necesário
         this.analizePid = false;
         this.feedForward = feedForward;
-        
+
+        this.getTarget = null;
         addRequirements(this.braco);
     }
     public Pidbraco(Braco braco, double target, boolean analizePid, double feedForward){
@@ -32,7 +48,8 @@ public class Pidbraco extends Command{
         //sobrecarga de método para tirar a potência do braço, se necesário
         this.analizePid = analizePid;
         this.feedForward = feedForward;
-        
+
+        this.getTarget = null;
         addRequirements(this.braco);
     }
     public Pidbraco(Braco braco, double target, boolean analizePid){
@@ -43,6 +60,7 @@ public class Pidbraco extends Command{
 
         this.feedForward = 0.0;
 
+        this.getTarget = null;
         addRequirements(this.braco);
     }
     @Override
@@ -50,7 +68,8 @@ public class Pidbraco extends Command{
     }
     @Override
     public void execute() {
-        braco.setAbsolutePosition(target, feedForward);
+        double alvo = (getTarget!=null)?getTarget.get():target;
+        braco.setAbsolutePosition(alvo, feedForward);
     }
 
     @Override

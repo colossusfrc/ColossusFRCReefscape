@@ -2,6 +2,7 @@ package frc.robot.autonomous;
 
 import java.util.List;
 
+import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 
 import edu.wpi.first.math.geometry.Pose2d;
@@ -14,37 +15,39 @@ import frc.robot.RCFeatures.Interfaces.AutoInterface;
 import frc.robot.RCFeatures.Interfaces.ArmInterface.ArmStates;
 import frc.robot.commands.Arm.CollectivePIDBraco;
 import frc.robot.commands.Claw.ClawTestCommand;
+import frc.robot.subsystems.ArmMechanisms.GarraBase;
 import frc.robot.subsystems.ArmMechanisms.GarraIntake;
 import frc.robot.subsystems.SwerveMechanisms.SwerveSubsystem;
 
 public class AutonomousFactory {
+    public static boolean stCmd;
     public static Command getAutonomousCommand(){
-        return new SequentialCommandGroup(
-        pathplannerTrajetoryWithTimeout(SwerveSubsystem.getAutonomousRoutine(), 2.0),
-            alignTagToPosition(AutonConstants.cameraOffsets.get(SwerveSubsystem.getAutonomousRoutine())).andThen(
-                SwerveSubsystem.getInstance().resetOdometryCommand(new Pose2d(AutoInterface.robotPoseDueTag(), AutonConstants.cameraTargetHeadings.get(SwerveSubsystem.getAutonomousRoutine())))),
-                    setArmState(ArmStates.l3, LimelightConstants.armTimeout),
-                        actuateClaw(LimelightConstants.armTimeout),
-                            setArmState(ArmStates.guarda, LimelightConstants.armTimeout)
-        );
+        NamedCommands.registerCommand("ArmReef", setArmState(ArmStates.l1, 2));
+        NamedCommands.registerCommand("Out", actuateClaw(2));
+        NamedCommands.registerCommand("Back", setArmState(ArmStates.guarda, 1));
+        NamedCommands.registerCommand("reset", alignTagToPosition());
+        return pathplannerTrajetory();
     }
-    private static Command pathplannerTrajetoryWithTimeout(String trajectory, double timeout){
-        return new PathPlannerAuto(SwerveSubsystem.getAutonomousRoutine()).withTimeout(timeout);
+    private static Command pathplannerTrajetory(){
+        return new PathPlannerAuto(SwerveSubsystem.getAutonomousRoutine());
+    }
+    public static Command alignTagToPosition(){
+        return 
+            SwerveSubsystem.getInstance().resetOdometryCommand(
+                new Pose2d(AutoInterface.robotPoseDueTag(), SwerveSubsystem.getInstance().getHeading())
+          );
     }
     public static Command alignTagToPosition(Pose2d pose){
-        return new AutoAlignTag(SwerveSubsystem.getInstance(),
-        pose,
-         AutoInterface.limelightTagGettersX, AutoInterface.limelightTagGettersY,
-          AutoInterface.limelightTagGettersTheta);
+        return 
+            SwerveSubsystem.getInstance().resetOdometryCommand(
+                new Pose2d(AutoInterface.robotPoseDueTag(), SwerveSubsystem.getInstance().getHeading())
+          );
     }
     private static Command setArmState(ArmStates armStates, double timeout){
-        return new CollectivePIDBraco(ArmStates.l3, ArmInterface.bracos, GarraIntake.getInstance())
-        .withTimeout(
-         timeout
-        );
+        return new CollectivePIDBraco(armStates, ArmInterface.bracos, GarraBase.getInstance());
     }
     private static Command actuateClaw(double timeout){
-        return new ClawTestCommand(GarraIntake.getInstance(), -0.1).withTimeout(
+        return new ClawTestCommand(GarraIntake.getInstance(),()-> -0.1).withTimeout(
                         timeout
                        );
     }

@@ -26,28 +26,24 @@ public class GarraBase extends Garra{
     }
     @Override
     protected void pidConfig() {
-        config.closedLoop
-            .pidf(0.04, 0.0, 0.0, 0.0)
-            .iZone(0.0)
-            .maxOutput(1.0)
-            .minOutput(-1.0);
     }
     @Override
     public void periodic() {
-        SmartDashboard.putNumber("posicao encoder garr base", getPosition());
+        SmartDashboard.putNumber("posicao encoder garr base", this.encoderAbsoluto.get());
         SmartDashboard.putNumber("posicao encoder absoluto garra base", getAbsoluteAngle());
     }
     @Override
     public double getAbsolutePosition() { 
-        double value = this.encoderAbsoluto.get()*conversionFactor*360;
+        double value = (this.encoderAbsoluto.get()+ClawConstants.encoderOffset)*conversionFactor*360;
         return value;
     }
     @Override
-    public double getAbsoluteAngle() {double angle;
+    public double getAbsoluteAngle() {
+        double angle;
         angle = getAbsolutePosition() + initialComplementarAngle;
         while(Math.abs(angle)>360)angle -= Math.signum(angle)*360;
-        while(Math.abs(angle)>180)angle = -Math.signum(angle)*(360-Math.abs(angle));
-        return angle+ClawConstants.encoderOffset;
+        //while(Math.abs(angle)>180)angle = -Math.signum(angle)*(360-Math.abs(angle));
+        return angle;
     }
 
     @Override
@@ -75,7 +71,7 @@ public class GarraBase extends Garra{
     public void stopArm() { setPower(0.0); }
 
     @Override
-    public void setArm(double power) { setPower(power);}
+    public void setArm(double power) { motor.set(-power);}
 
     @Override
     public void setReference(double position) { setAbsolutePosition(position, 0.0);}

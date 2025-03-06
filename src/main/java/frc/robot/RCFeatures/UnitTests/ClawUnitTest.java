@@ -1,7 +1,9 @@
 package frc.robot.RCFeatures.UnitTests;
 
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.Constants.ArmUtility.ArmPositions;
 import frc.robot.Constants.ArmUtility.ClawConstants;
+import frc.robot.RCFeatures.Interfaces.ArmInterface.ArmStates;
 import frc.robot.commands.Claw.ClawCommand;
 import frc.robot.commands.Claw.ClawTestCommand;
 import frc.robot.subsystems.ArmMechanisms.GarraBase;
@@ -21,9 +23,9 @@ public class ClawUnitTest {
     }
 
     private void unitTestClaw(){
-        garraBase.setDefaultCommand(new ClawCommand(garraBase, 0.0));
-        garraIntake.setDefaultCommand(new ClawCommand(garraIntake, 0.0));
-        contrle.leftBumper().toggleOnTrue(new ClawTestCommand(garraIntake, ClawConstants.clawReceive));
-        contrle.rightBumper().whileTrue(new ClawTestCommand(garraIntake, ClawConstants.clawDrop));
+        garraIntake.setDefaultCommand(new ClawTestCommand(garraIntake, ClawConstants.feedForward));
+        garraBase.setDefaultCommand(new ClawCommand(garraBase, ArmPositions.armPositions.get(ArmStates.guarda)[2]));
+        contrle.leftBumper().whileTrue(new ClawTestCommand(garraIntake, ()->ClawConstants.clawDrop));
+        contrle.rightBumper().whileTrue(new ClawTestCommand(garraIntake, ()->ClawConstants.clawReceive));
     }
 }

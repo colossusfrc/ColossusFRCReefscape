@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.ArmUtility;
 import frc.robot.Constants.ArmUtility.ArmConstants;
 import frc.robot.RCFeatures.ArmFeatures.StateMachine;
+import frc.robot.autonomous.LimelightHelpers;
 import frc.robot.subsystems.ArmMechanisms.Superclasses.Braco;
 
 /**
@@ -16,17 +17,17 @@ import frc.robot.subsystems.ArmMechanisms.Superclasses.Braco;
  */
 public class BracoBaixo extends Braco{
 
-  private SparkMax motorAuxiliar = new SparkMax(12, MotorType.kBrushless);
+  private SparkMax motorAuxiliar = new SparkMax(ArmConstants.idMotorAuxiliarv, MotorType.kBrushless);
 
-  private double lastValue = 0.0;
+  private double lastValue = 0.5;
 
-  private double currentValue;
+  private double currentValue = 0.5;
 
-  private double rotations = 0.0;
+  private double rotations = -1.0;
 
   private final Supplier<Double> getTreatedMotion;
 
-  private final double initialComplementarAngle = 0.0;
+  private final double initialComplementarAngle = -50.0;
 
   private static BracoBaixo instance;
     public static synchronized BracoBaixo getInstance(){
@@ -43,7 +44,7 @@ public class BracoBaixo extends Braco{
      stateMachine);
     super.pidController.setTolerance(2);
     getTreatedMotion = () -> {
-        currentValue = -super.enCycleAdv.get();
+        currentValue = super.enCycleAdv.get();
 
         if(lastValue>0.9 && currentValue< 0.1){
             rotations++;
@@ -53,15 +54,17 @@ public class BracoBaixo extends Braco{
 
         lastValue = currentValue;
 
-        return currentValue + rotations + ArmConstants.offset;
+        return -(currentValue + rotations + ArmConstants.offset);
     };
   }
   @Override
   public void periodic() {
       super.periodic();
       SmartDashboard.putNumber("Encoder Absoluto Baixo", super.enCycleAdv.get());
+      SmartDashboard.putNumber("increment", rotations);
       SmartDashboard.putNumber("Valor rotativo", getTreatedMotion.get());
       SmartDashboard.putNumber("Angulo de tratamento [Baixo]", getAbsoluteAngle());
+      SmartDashboard.putNumber("Potencia baixo", motor.get()+motorAuxiliar.get());
   
       currentValue = getTreatedMotion.get();
   }
@@ -82,7 +85,7 @@ public class BracoBaixo extends Braco{
     double angle;
     angle =  getAbsolutePosition() + initialComplementarAngle;
     while(Math.abs(angle)>360)angle -= Math.signum(angle)*360;
-    while(Math.abs(angle)>180)angle = -Math.signum(angle)*(360-Math.abs(angle));
+    //while(Math.abs(angle)>180)angle = -Math.signum(angle)*(360-Math.abs(angle));
     return angle;
   }
 
@@ -92,7 +95,8 @@ public class BracoBaixo extends Braco{
 
     double treatedPower = (Math.abs(nonTreatedPower)>ArmUtility.ArmConstants.kMaxOutput)?Math.signum(nonTreatedPower)*ArmConstants.kMaxOutput:nonTreatedPower;
 
-    treatedPower = ((Math.abs(super.pidController.getError())>=180)&&(getAbsoluteAngle()>0))?-Math.abs(treatedPower):treatedPower;
+    /*treatedPower = ((Math.abs(super.pidController.getError())>=180)&&((getAbsoluteAngle()<60&&getAbsoluteAngle()>=0)||(getAbsoluteAngle()>=-150&&getAbsoluteAngle()<0)))?
+    -Math.signum(treatedPower)*treatedPower:treatedPower;*/
         
     //(|erro|>=180&&(angulo<x1||angulo>x2))treatedPower*=-1
     setArm(treatedPower+feedForward);

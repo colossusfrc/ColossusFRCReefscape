@@ -3,8 +3,12 @@ package frc.robot.commands.Arm;
 import frc.robot.Constants;
 import frc.robot.Constants.Controle;
 import frc.robot.Constants.ArmUtility.ArmPositions;
+import frc.robot.Constants.ArmUtility.ClawConstants;
 import frc.robot.RCFeatures.Interfaces.ArmInterface.ArmStates;
 import frc.robot.commands.Claw.ClawCommand;
+import frc.robot.commands.Claw.ClawTestCommand;
+import frc.robot.subsystems.ArmMechanisms.GarraBase;
+import frc.robot.subsystems.ArmMechanisms.GarraIntake;
 import frc.robot.subsystems.ArmMechanisms.Superclasses.Braco;
 import frc.robot.subsystems.ArmMechanisms.Superclasses.Garra;
 
@@ -15,14 +19,15 @@ import edu.wpi.first.wpilibj2.command.Command;
 public class CollectivePIDBraco extends Command {
     private final ArmStates armState;
     private final List<Braco> bracos;
-    private final Garra garra;
+    private final GarraBase garra;
 
-    public CollectivePIDBraco(ArmStates armState, List<Braco> bracos, Garra garra){
+    public CollectivePIDBraco(ArmStates armState, List<Braco> bracos, GarraBase garra){
         this.armState  = armState;
         this.bracos = bracos;
         this.garra = garra;
-        addRequirements(bracos.get(0), bracos.get(1), garra);
+        addRequirements(this.bracos.get(0), this.garra);
     }
+    
 
     @Override
     public void initialize() {
@@ -32,13 +37,13 @@ public class CollectivePIDBraco extends Command {
     @Override
     public void execute() {
         //diminui a potencia se !guarda
-        Constants.Controle.limit = ()->((armState!=ArmStates.guarda)?
-            Controle.minLimit:
-            Controle.maxLimit);
+        Constants.Controle.limit = ()->((armState==ArmStates.guarda)||(armState==ArmStates.l1)||(armState==ArmStates.cage)?
+            Controle.maxLimit:
+            Controle.minLimit);
         //controle do BRAÇO ALTO[0]
         /*new Pidbraco(this.bracos.get(0), ArmPositions.armPositions.get(armState)[0]).execute();*/
         //controle do BRAÇO BAIXO[1]
-        new Pidbraco(this.bracos.get(1), ArmPositions.armPositions.get(armState)[1]).execute();
+        new Pidbraco(this.bracos.get(0), ArmPositions.armPositions.get(armState)[0]).execute();
          //GARRA[2]
         new ClawCommand(this.garra, ArmPositions.armPositions.get(armState)[2]).execute();
     }
