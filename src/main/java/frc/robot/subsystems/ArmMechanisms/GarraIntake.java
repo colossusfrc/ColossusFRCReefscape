@@ -28,9 +28,8 @@ public class GarraIntake extends Garra{
     }
     @Override
     public void periodic() {
-        SmartDashboard.putNumber("Voltagem", motor.getOutputCurrent());
-        SmartDashboard.putNumber("power", motor.get());
-        SmartDashboard.putNumber("clawPower", ClawConstants.clawPower);
+        SmartDashboard.putNumber("claw power intake", ClawConstants.feedForward.get());
+        SmartDashboard.putNumber("power intake", motor.get());
     }
     public double getVoltage(){
         return this.motor.getOutputCurrent();

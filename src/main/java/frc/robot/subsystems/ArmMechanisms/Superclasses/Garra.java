@@ -23,6 +23,8 @@ public class Garra extends SubsystemBase implements Clever{
 
     protected SparkClosedLoopController sparkPid;
 
+    protected double power = 0.0;
+
     public Garra(int id){
 
         this.motor = new SparkMax(id, MotorType.kBrushless);
@@ -67,11 +69,12 @@ public class Garra extends SubsystemBase implements Clever{
 
     public void setReference(double position){ this.sparkPid.setReference(position, ControlType.kPosition); }
 
-    public void setPower(double power){ this.motor.set(power); }
+    public void setPower(double power){ 
+        this.power = power;
+        this.motor.set(power); }
 
     @Override
     public void periodic() {
-        SmartDashboard.putNumber("power", motor.get());
         SmartDashboard.putNumber("Posicao Garra", getPosition());
     }
     

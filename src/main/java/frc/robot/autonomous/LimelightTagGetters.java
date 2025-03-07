@@ -1,8 +1,6 @@
 package frc.robot.autonomous;
 
 import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.AutonConstants;
@@ -12,11 +10,9 @@ import frc.robot.subsystems.SwerveMechanisms.SwerveSubsystem;
 public class LimelightTagGetters extends SubsystemBase{
     private PIDController pid;
     public enum Axis{x, y, theta};
-    private Alliance fieldAttributes;
     private Axis axis;
     public LimelightTagGetters(Axis axis){
         this.axis = axis;
-        this.fieldAttributes = DriverStation.getAlliance().get();
         this.pid = new PIDController(0.012, 0, 0);
     }
     public double getPose(){
