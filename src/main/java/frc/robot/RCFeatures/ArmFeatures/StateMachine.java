@@ -1,11 +1,8 @@
 package frc.robot.RCFeatures.ArmFeatures;
 
+import frc.robot.Constants.ArmUtility.ArmConstants;
 import frc.robot.Constants.ArmUtility.ClawConstants;
 import frc.robot.RCFeatures.Interfaces.ArmInterface.ArmStates;
-import frc.robot.commands.Claw.ClawCommand;
-import frc.robot.commands.Claw.ClawTestCommand;
-import frc.robot.subsystems.ArmMechanisms.GarraBase;
-import frc.robot.subsystems.ArmMechanisms.GarraIntake;
 import edu.wpi.first.wpilibj.Timer;
 
 public class StateMachine {
@@ -14,7 +11,6 @@ public class StateMachine {
     private ArmStates atual;
     private boolean pidSpecialities = false;
     private static StateMachine instance;
-    private boolean intakeActive = false;
 
     public static StateMachine getInstance(){
         if(instance == null){
@@ -48,7 +44,7 @@ public class StateMachine {
 
         if(hipotheticalState == ArmStates.cage){
             ClawConstants.clawPower = 0.0;
-        } else if (atual == ArmStates.l3 && hipotheticalState == ArmStates.guarda) {
+        } else if(atual == ArmStates.l3 && hipotheticalState == ArmStates.guarda){
             new Thread(
                 ()->{
                     double zeroTIme = Timer.getFPGATimestamp();
@@ -58,6 +54,19 @@ public class StateMachine {
                     ClawConstants.clawPower = 0.05;
                 }
             ).start();
+            return ArmStates.guardaL3;
+        } else if (atual == ArmStates.l3 && hipotheticalState == ArmStates.pega) {
+            new Thread(
+                ()->{
+                    double zeroTIme = Timer.getFPGATimestamp();
+                    while(Timer.getFPGATimestamp()-zeroTIme<2){
+                        ClawConstants.clawPower = -0.3;
+                    }
+                    ClawConstants.clawPower = 0.05;
+                }
+            ).start();
+        } else if(hipotheticalState == ArmStates.guarda && atual == ArmStates.cage) {
+            ArmConstants.maxOutputFn = ()->0.5;
         } else {
             ClawConstants.clawPower = 0.05;
         }

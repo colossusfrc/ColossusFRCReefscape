@@ -2,7 +2,6 @@ package frc.robot.autonomous;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Constants.AutonConstants.LimelightConstants;
 import frc.robot.commands.Swerve.DriveRobotOrientated;
 import frc.robot.subsystems.SwerveMechanisms.SwerveSubsystem;
 
@@ -23,13 +22,6 @@ public class AutoAlignTag extends Command{
         this.limelightTagGettersY = limelightTagGettersY;
         this.limelightTagGettersTheta = limelightTagGettersTheta;
         addRequirements(swerveSubsystem, limelightTagGettersTheta, limelightTagGettersX, limelightTagGettersY);
-        LimelightHelpers.setCameraPose_RobotSpace(LimelightConstants.limelightName,
-         LimelightConstants.limelightV0[0],
-         LimelightConstants.limelightV0[1],
-         LimelightConstants.limelightV0[2],
-         LimelightConstants.limelightV0[3],
-         LimelightConstants.limelightV0[4], 
-         LimelightConstants.limelightV0[5]);
     }
     @Override
     public void initialize() {

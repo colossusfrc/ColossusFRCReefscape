@@ -26,6 +26,7 @@ public class ArmUnitTest{
 
         armRoutineManager();
     }
+    @Deprecated
     private void armTestCrisis(){
       bracos.get(0).setDefaultCommand(
        new SimpleArmCommand(bracos.get(0),()->controleXbox.getLeftTriggerAxis()*0.5)
@@ -34,12 +35,13 @@ public class ArmUnitTest{
 
     }
     private void armRoutineManager(){
-      bracos.get(0).setDefaultCommand(
+      //estado padrão (inicia em guarda, mas sempre volta pra l1 quando tu destolggla os botões.)
+      /*bracos.get(0).setDefaultCommand(
         new Pidbraco(bracos.get(0), ()->{
           return (stateMachine.getAtual()==ArmStates.guarda)?Constants.ArmUtility.ArmPositions.armPositions.get(ArmStates.guarda)[0]:
           Constants.ArmUtility.ArmPositions.armPositions.get(ArmStates.l1)[0];
         })
-      );
+      );*/
         treeUnitTest();
     }
   private void treeUnitTest(){
@@ -52,8 +54,16 @@ public class ArmUnitTest{
     controleXbox.y().toggleOnTrue(
       ArmCommandFactory.getArmCommand(ArmStates.pega, bracos, stateMachine, garra)
     );
-    controleXbox.b().toggleOnTrue(
+    //marcar pra revisão (ids do joystick certo)
+    controleXbox.b().and(()->controleXbox.axisGreaterThan(2, 0.1).getAsBoolean()).toggleOnTrue(
       ArmCommandFactory.getArmCommand(ArmStates.l3, bracos, stateMachine, garra)
+    );
+    controleXbox.axisGreaterThan(2, 0.1).and(()->controleXbox.b().getAsBoolean()).toggleOnTrue(
+      ArmCommandFactory.getArmCommand(ArmStates.l3, bracos, stateMachine, garra)
+    );
+    //marcar prarevisã0 (não precisa, o gerente acredita que os botões sao conservados)
+    controleXbox.b().toggleOnTrue(
+      ArmCommandFactory.getArmCommand(ArmStates.startL3, bracos, stateMachine, garra)
     );
     controleXbox.start().toggleOnTrue(
       ArmCommandFactory.getArmCommand(ArmStates.guarda, bracos, stateMachine, garra)

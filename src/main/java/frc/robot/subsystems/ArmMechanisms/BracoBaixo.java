@@ -64,7 +64,7 @@ public class BracoBaixo extends Braco{
       SmartDashboard.putNumber("Valor rotativo", getTreatedMotion.get());
       SmartDashboard.putNumber("Angulo de tratamento [Baixo]", getAbsoluteAngle());
       SmartDashboard.putNumber("Potencia baixo", motor.get()+motorAuxiliar.get());
-  
+      SmartDashboard.putBoolean("PID", getPID());
       currentValue = getTreatedMotion.get();
   }
 
@@ -92,7 +92,7 @@ public class BracoBaixo extends Braco{
   public void setAbsolutePosition(double position, double feedForward) {
     double nonTreatedPower = pidController.calculate(getAbsoluteAngle(), position);
 
-    double treatedPower = (Math.abs(nonTreatedPower)>ArmUtility.ArmConstants.kMaxOutput)?Math.signum(nonTreatedPower)*ArmConstants.kMaxOutput:nonTreatedPower;
+    double treatedPower = (Math.abs(nonTreatedPower)>ArmConstants.maxOutputFn.get())?Math.signum(nonTreatedPower)*ArmConstants.maxOutputFn.get():nonTreatedPower;
 
     /*treatedPower = ((Math.abs(super.pidController.getError())>=180)&&((getAbsoluteAngle()<60&&getAbsoluteAngle()>=0)||(getAbsoluteAngle()>=-150&&getAbsoluteAngle()<0)))?
     -Math.signum(treatedPower)*treatedPower:treatedPower;*/

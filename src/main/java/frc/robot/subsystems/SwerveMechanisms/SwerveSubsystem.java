@@ -165,8 +165,8 @@ public class SwerveSubsystem extends SubsystemBase{
   public Command driveCommand(DoubleSupplier translationX, DoubleSupplier translationY, DoubleSupplier angularRotationX)
   {
     return run(() -> {
-      double xInput = Math.pow(translationX.getAsDouble(), 3); 
-      double yInput = Math.pow(translationY.getAsDouble(), 3); 
+      double xInput = Math.pow(translationX.getAsDouble(), 1); 
+      double yInput = Math.pow(translationY.getAsDouble(), 1); 
       // Faz o robô se mover
       swerveDrive.drive(new Translation2d(xInput * swerveDrive.getMaximumChassisVelocity(),
                                           yInput * swerveDrive.getMaximumChassisVelocity()),

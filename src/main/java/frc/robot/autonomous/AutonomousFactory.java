@@ -4,9 +4,7 @@ import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 
 import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import frc.robot.Constants.AutonConstants.LimelightConstants;
 import frc.robot.RCFeatures.Interfaces.ArmInterface;
 import frc.robot.RCFeatures.Interfaces.AutoInterface;
@@ -20,7 +18,7 @@ import frc.robot.subsystems.SwerveMechanisms.SwerveSubsystem;
 public class AutonomousFactory {
     public static Command getAutonomousCommand(){
         NamedCommands.registerCommand("Level1", setArmState(ArmStates.l1));
-        NamedCommands.registerCommand("SendCoral", actuateClaw(1.0));
+        NamedCommands.registerCommand("SendCoral", actuateClaw(2.0));
         NamedCommands.registerCommand("Back", setArmState(ArmStates.guarda));
         NamedCommands.registerCommand("ResTag", alignTagToPosition().withTimeout(1.0));
         NamedCommands.registerCommand("keepCoral", actuateClaw(2.0, 0.05));

@@ -16,7 +16,9 @@ public interface ArmInterface {
           guarda,
           cage,
           pegaAlgeeL2,
-          pegaAlgeeL3
+          pegaAlgeeL3,
+          startL3,
+          guardaL3
      };
      static StateMachine stateMachine = StateMachine.getInstance();
      static List<Braco> bracos = Arrays.asList(

@@ -5,13 +5,19 @@
     "data": {
       "commands": [
         {
+          "type": "named",
+          "data": {
+            "name": "keepCoral"
+          }
+        },
+        {
           "type": "parallel",
           "data": {
             "commands": [
               {
-                "type": "path",
+                "type": "named",
                 "data": {
-                  "pathName": "ForwardR1"
+                  "name": "Level1"
                 }
               },
               {
@@ -24,9 +30,47 @@
           }
         },
         {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "keepCoral"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "ForwardR1"
+                }
+              }
+            ]
+          }
+        },
+        {
           "type": "named",
           "data": {
-            "name": "keepCoral"
+            "name": "SendCoral"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "SegundoCaminhoR1"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Back"
+                }
+              }
+            ]
           }
         }
       ]

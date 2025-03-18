@@ -12,7 +12,6 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.geometry.Translation3d;
 import frc.robot.RCFeatures.Interfaces.ArmInterface.ArmStates;
-import frc.robot.autonomous.LimelightHelpers;
 import swervelib.math.Matter;
 import swervelib.math.SwerveMath;
 
@@ -142,8 +141,11 @@ public final class Constants {
 
     // Contem a porta em que o controle está
     public static class Controle {
-      public static final double maxLimit = 0.8;
+      public static final double maxLimit = 1.0;
+      public static final double turn = 0.65;
+      public static final double minTurn = 0.4;
       public static Supplier<Double> limit = ()->maxLimit;
+      public static Supplier<Double> turnLimit = ()->turn;
       public static final double minLimit = 0.6;
       // Porta do controle
       public static final int xboxControle = 0;
@@ -172,6 +174,7 @@ public final class Constants {
     public static final class ArmUtility{
       //constants do braço baixo
       public static final class ArmConstants {
+        public static final double length = 50.8;
         public static final int id = 10;
         public static final int idMotorAuxiliarv = 11;
         public static final int idEncoder = 8;
@@ -182,8 +185,9 @@ public final class Constants {
         public static final double kD = 0.0;
         public static final double kIz = 0.0;
         public static final double kFF = 0.0;
-        public static final double kMaxOutput = 0.5;
+        public static final double kMaxOutput = 0.8;
         public static final double kMinOutput = -kMaxOutput;
+        public static Supplier<Double> maxOutputFn = ()->kMaxOutput;
       }
       //constantes do braço alto
       @Deprecated
@@ -206,10 +210,10 @@ public final class Constants {
         public static final double clawDrop = -0.3;
         public static final int baseId = 9;
         public static final int intakeId = 12;
-        public static final int absoluteEncoderId = 9;
-        public static final double kp = 0.006, ki = 0.0, kd = 0.0;
+        public static final int absoluteEncoderId = 7;
+        public static final double kp = 0.06, ki = 0.0, kd = 0.0;
         public static final double kMaxPower = 0.1;
-        public static final double encoderOffset = -0.654;
+        public static final double encoderOffset = -0.34;
         public static double clawPower = 0.05;
         public static final Supplier<Double> feedForward = ()->clawPower;
       }
@@ -217,16 +221,18 @@ public final class Constants {
         public static double armFeedForward = 0.0;
           @SuppressWarnings({ "rawtypes", "unchecked" })
           //ArmState->{posicaoBracoBaixo, posicaoBracoALto, posicaoGarra}
-          public static HashMap<ArmStates, Double[]> armPositions = new HashMap(8);
+          public static HashMap<ArmStates, Double[]> armPositions = new HashMap(10);
           static{
               armPositions.put(ArmStates.guarda, new Double[]{50.0, 29.0, 0.0});
-              armPositions.put(ArmStates.pegaAlgeeL3, new Double[]{215.0, 67.0, -90.0});
-              armPositions.put(ArmStates.l1, new Double[]{85.0, 30.0, -90.0});
+              armPositions.put(ArmStates.guardaL3, new Double[]{50.0, 29.0, 0.0});
+              armPositions.put(ArmStates.pegaAlgeeL3, new Double[]{215.0, 67.0, 4.0});
+              armPositions.put(ArmStates.l1, new Double[]{85.0, 30.0, 4.0});
               armPositions.put(ArmStates.l2, new Double[]{110.0, 35.0, 0.0});
-              armPositions.put(ArmStates.pega, new Double[]{112.35, 29.0, -90.0});
+              armPositions.put(ArmStates.pega, new Double[]{112.35, 29.0, 4.0});
               armPositions.put(ArmStates.cage, new Double[]{180.0, 31.4, 0.0});
-              armPositions.put(ArmStates.l3, new Double[]{215.0, 46.5, 0.0});
-              armPositions.put(ArmStates.pegaAlgeeL2, new Double[]{230.0, 30.0, -90.0});
+              armPositions.put(ArmStates.l3, new Double[]{207.5, 46.5, 0.0});
+              armPositions.put(ArmStates.pegaAlgeeL2, new Double[]{230.0, 30.0, 4.0});
+              armPositions.put(ArmStates.startL3, new Double[]{180.0, 30.0, 0.0});
           }
         }
     }

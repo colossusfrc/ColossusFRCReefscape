@@ -22,19 +22,17 @@ public class SwerveUnitTest {
     }
     private void alignTagHeading(){
       controleXbox.povUp().toggleOnTrue(
-        new AlignTagSwerve(
-        () -> MathUtil.applyDeadband(controleXbox.getRawAxis(1)*Controle.limit.get(), Constants.Controle.DEADBAND),
-        () -> MathUtil.applyDeadband(controleXbox.getRawAxis(0)*Controle.limit.get(), Constants.Controle.DEADBAND),
-        new Pose2d(0.0, 0.0, new Rotation2d(0.0)),
-        swerve,
-        AutoInterface.limelightTagGettersTheta));
+        swerve.resetOdometryCommand(new Pose2d(0.0,0.0, new Rotation2d(0.0)))
+      );
     }
+    @Deprecated
     private void alignTagCommand(){
       controleXbox.povUp().toggleOnTrue(AutonomousFactory.alignTagToPosition(AutonConstants.cameraOffsets.get(SwerveSubsystem.getAutonomousRoutine())));
     controleXbox.povDown().onTrue(SwerveSubsystem.getInstance().resetOdometryCommand(
       new Pose2d(AutoInterface.robotPoseDueTag(),
       AutonConstants.cameraTargetHeadings.get(SwerveSubsystem.getAutonomousRoutine()))));
     }
+    @Deprecated
     private void swerveUnitTestHeading(){
         controleXbox.povDown().toggleOnTrue(swerve.driveCommandAlinharComJoystick(
           ()->0.0, 
@@ -47,6 +45,7 @@ public class SwerveUnitTest {
         ()->0.0, 
         ()->-60.0));
     }
+    @Deprecated
     private void swerveUnitTestHeadingJoysticjInputs(){
         controleXbox.povDown().toggleOnTrue(swerve.driveCommandAlinharComJoystick(
         () -> MathUtil.applyDeadband(-controleXbox.getLeftY()*Controle.limit.get(), Constants.Controle.DEADBAND),

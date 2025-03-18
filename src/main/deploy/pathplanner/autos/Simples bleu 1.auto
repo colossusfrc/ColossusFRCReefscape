@@ -11,7 +11,26 @@
           }
         },
         {
-          "type": "deadline",
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "Level1"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "keepCoral"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "parallel",
           "data": {
             "commands": [
               {
@@ -23,7 +42,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "ForwardB1"
+                  "pathName": "CaminhoInicialB3"
                 }
               }
             ]
@@ -32,7 +51,32 @@
         {
           "type": "named",
           "data": {
-            "name": "keepCoral"
+            "name": "SendCoral"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Back"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "SegundoCaminhoB3"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Back"
+                }
+              }
+            ]
           }
         }
       ]
